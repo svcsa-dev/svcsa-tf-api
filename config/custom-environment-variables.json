@@ -1,0 +1,13 @@
+{
+  "port": {
+    "__name": "PORT",
+    "__format": "number"
+  },
+  "host": "HOSTNAME",
+  "authentication": {
+    "secret": "FEATHERS_SECRET"
+  },
+  "mysql": {
+    "connection": "DATABASE_CONNECTION_STRING"
+  }
+}
