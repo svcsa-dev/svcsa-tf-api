@@ -7,7 +7,7 @@
   "keywords": [
     "feathers"
   ],
-  "author": {},
+  "author": {"name": "Xin Liu"},
   "contributors": [],
   "bugs": {},
   "engines": {
@@ -68,8 +68,11 @@
     "@feathersjs/rest-client": "^5.0.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.14.2",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
     "axios": "^1.3.4",
     "cross-env": "^7.0.3",
+    "eslint": "^8.35.0",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.4",
