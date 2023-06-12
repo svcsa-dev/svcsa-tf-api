@@ -5,7 +5,7 @@ import type { Static } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
-// import { toLowerCaseProperty } from '../../utilities/property-name-converter';
+import { toLowerCaseProperty } from '../../utilities/property-name-converter';
 
 
 // Main data model schema
@@ -29,10 +29,22 @@ export const teamSchema = Type.Object(
 export type Team = Static<typeof teamSchema>
 export const teamValidator = getValidator(teamSchema, dataValidator)
 export const teamResolver = resolve<Team, HookContext>({
-    // converter: async () => {
-    //     return toLowerCaseProperty(rawData, teamSchema)
-    // }
+  photosrc: async (value) => {
+    // Return the photo avatar URL
+    return `http://svcsa.org/uploads/${value}`;
+  },
+
+  logosrc: async (value) => {
+    return `http://svcsa.org/uploads/${value}`;
+  }, 
+
+  
+}, {
+  converter: async (rawData) => {
+    return toLowerCaseProperty(rawData, teamSchema)
+  } 
 });
+
 export const teamExternalResolver = resolve<Team, HookContext>({})
 
 // Schema for creating new entries
