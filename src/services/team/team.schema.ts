@@ -30,15 +30,18 @@ export type Team = Static<typeof teamSchema>
 export const teamValidator = getValidator(teamSchema, dataValidator)
 export const teamResolver = resolve<Team, HookContext>({
   photosrc: async (value) => {
-    // Return the photo avatar URL
-    return `http://svcsa.org/uploads/${value}`;
+    if (value != null && value.trim() !== "") {
+      return `http://svcsa.org/uploads/${value}`;
+    }
+    return "No Image Uploaded!";
   },
 
   logosrc: async (value) => {
-    return `http://svcsa.org/uploads/${value}`;
+    if (value != null && value.trim() !== "") {
+      return `http://svcsa.org/uploads/${value}`;
+    }
+    return "No logo Uploaded!"
   }, 
-
-  
 }, {
   converter: async (rawData) => {
     return toLowerCaseProperty(rawData, teamSchema)

@@ -25,6 +25,9 @@ export const playerValidator = getValidator(playerSchema, dataValidator)
 export const playerResolver = resolve<Player, HookContext>({
   photosrc: async (value) => {
     // Return the photo avatar URL
+    if(value == null) {
+      return "No Photo Uploaded"
+    }
     return `http://svcsa.org/uploads/${value}`;
   },
 
