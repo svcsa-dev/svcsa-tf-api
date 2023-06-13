@@ -15,8 +15,8 @@ export const teamSchema = Type.Object(
       id: Type.Number(),
       name: Type.String(),
       shortname: Type.String(),
-      logosrc: Type.String(),
-      photosrc: Type.String(),
+      logosrc: Type.Optional(Type.String()),
+      photosrc: Type.Optional(Type.String()),
       description: Type.String(),
       captainname: Type.String(), 
       capitainemail:Type.String(), 
@@ -30,17 +30,17 @@ export type Team = Static<typeof teamSchema>
 export const teamValidator = getValidator(teamSchema, dataValidator)
 export const teamResolver = resolve<Team, HookContext>({
   photosrc: async (value) => {
-    if (value != null && value.trim() !== "") {
-      return `http://svcsa.org/uploads/${value}`;
+    if(!value) {
+      return 'null';
     }
-    return "No Image Uploaded!";
+    return `http://svcsa.org/uploads/${value}`;
   },
 
   logosrc: async (value) => {
-    if (value != null && value.trim() !== "") {
-      return `http://svcsa.org/uploads/${value}`;
+    if(!value) {
+      return 'null';
     }
-    return "No logo Uploaded!"
+    return `http://svcsa.org/uploads/${value}`;
   }, 
 }, {
   converter: async (rawData) => {
