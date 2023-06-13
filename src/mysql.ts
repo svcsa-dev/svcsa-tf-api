@@ -11,7 +11,6 @@ declare module './declarations' {
 
 export const mysql = (app: Application) => {
   const config = app.get('mysql')
-  console.log(config)
   const db = knex(config!)
 
   app.set('mysqlClient', db)
