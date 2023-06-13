@@ -11,17 +11,17 @@ import {
   teamDataResolver,
   teamPatchResolver,
   teamQueryResolver
-} from './team.schema'
+} from './tf-team.schema'
 
 import type { Application } from '../../declarations'
-import { TeamService, getOptions } from './team.class'
-import { teamPath, teamMethods } from './team.shared'
+import { TeamService, getOptions } from './tf-team.class'
+import { teamPath, teamMethods } from './tf-team.shared'
 
-export * from './team.class'
-export * from './team.schema'
+export * from './tf-team.class'
+export * from './tf-team.schema'
 
 // A configure function that registers the service and its hooks via `app.configure`
-export const team = (app: Application) => {
+export const tfTeam = (app: Application) => {
   // Register our service on the Feathers application
   app.use(teamPath, new TeamService(getOptions(app)), {
     // A list of all methods this service exposes externally

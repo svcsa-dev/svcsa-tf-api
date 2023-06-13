@@ -1,13 +1,13 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.shared.html
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../client'
-import type { Team, TeamData, TeamPatch, TeamQuery, TeamService } from './team.class'
+import type { Team, TeamData, TeamPatch, TeamQuery, TeamService } from './tf-team.class'
 
 export type { Team, TeamData, TeamPatch, TeamQuery }
 
 export type TeamClientService = Pick<TeamService<Params<TeamQuery>>, (typeof teamMethods)[number]>
 
-export const teamPath = 'team'
+export const teamPath = '/track-field/team'
 
 export const teamMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 

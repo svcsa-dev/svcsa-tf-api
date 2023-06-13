@@ -2,7 +2,7 @@ import type { Application } from '../../declarations'
 import type { Params } from '@feathersjs/feathers'
 import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
-import type { Team, TeamData, TeamPatch, TeamQuery } from './team.schema'
+import type { Team, TeamData, TeamPatch, TeamQuery } from './tf-team.schema'
 export type { Team, TeamData, TeamPatch, TeamQuery }
 
 export interface TeamParams extends KnexAdapterParams<TeamQuery> {}

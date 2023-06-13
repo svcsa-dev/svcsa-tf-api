@@ -1,10 +1,10 @@
-import { player } from './player/player'
-import { team } from './team/team'
+import { tfPlayer } from './tf-player/tf-player'
+import { tfTeam } from './tf-team/tf-team'
 // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html#configure-functions
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
-  app.configure(player)
-  app.configure(team)
+  app.configure(tfPlayer)
+  app.configure(tfTeam)
   // All services will be registered here
 }

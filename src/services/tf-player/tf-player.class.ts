@@ -4,7 +4,7 @@ import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
 
 import type { Application } from '../../declarations'
-import type { Player, PlayerData, PlayerPatch, PlayerQuery } from './player.schema'
+import type { Player, PlayerData, PlayerPatch, PlayerQuery } from './tf-player.schema'
 
 export type { Player, PlayerData, PlayerPatch, PlayerQuery }
 

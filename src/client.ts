@@ -4,8 +4,8 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
-import { playerClient } from './services/player/player.shared'
-export type { Player, PlayerData, PlayerQuery, PlayerPatch } from './services/player/player.shared'
+import { playerClient } from './services/tf-player/tf-player.shared'
+export type { Player, PlayerData, PlayerQuery, PlayerPatch } from './services/tf-player/tf-player.shared'
 
 export interface Configuration {
   connection: TransportConnection<ServiceTypes>
