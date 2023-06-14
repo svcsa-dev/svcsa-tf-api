@@ -24,6 +24,35 @@ This project uses [Feathers](http://feathersjs.com). An open source framework fo
     npm start
     ```
 
+## Services Structure
+
+### /track-field/player
+
+{{What's the purpose, params, return type, example}}
+
+### /track-field/team
+
+{{What's the purpose}}
+
+
+## Service Folder Structure
+
+```
+- Services
+ | -- track-field
+   |-- tf-player
+   |-- tf-team
+ | -- basketball
+   | -- bb-player
+   | -- bb-team
+```
+
+- Two top level modules: `track-field` and `basketball`
+- Track & field services should be prefix by `tf-`
+- Basketball services should be prefix by `bb-`
+- 
+
+
 ## Testing
 
 Run `npm test` and all your tests in the `test/` directory will be run.
