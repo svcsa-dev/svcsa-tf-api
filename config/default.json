@@ -11,6 +11,6 @@
   },
   "mysql": {
     "client": "mysql",
-    "connection": "mysql://root:@localhost:3306/svcsa-tf-api"
+    "connection": "mysql://dev@127.0.0.1:8889/match"
   }
 }

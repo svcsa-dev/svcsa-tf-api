@@ -13,7 +13,7 @@ import {
   playerQueryResolver
 } from './tf-player.schema'
 
-import type { Application } from '../../declarations'
+import type { Application } from '../../../declarations'
 import { PlayerService, getOptions } from './tf-player.class'
 import { playerPath, playerMethods } from './tf-player.shared'
 
@@ -52,7 +52,7 @@ export const tfPlayer = (app: Application) => {
 }
 
 // Add this service to the service type index
-declare module '../../declarations' {
+declare module '../../../declarations' {
   interface ServiceTypes {
     [playerPath]: PlayerService
   }

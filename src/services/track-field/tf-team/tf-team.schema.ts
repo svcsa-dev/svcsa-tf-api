@@ -3,9 +3,9 @@ import { resolve } from '@feathersjs/schema'
 import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
 
-import type { HookContext } from '../../declarations'
-import { dataValidator, queryValidator } from '../../validators'
-import { toLowerCaseProperty } from '../../utilities/property-name-converter';
+import type { HookContext } from '../../../declarations'
+import { dataValidator, queryValidator } from '../../../validators'
+import { toLowerCaseProperty } from '../../../utilities/property-name-converter';
 
 
 // Main data model schema
