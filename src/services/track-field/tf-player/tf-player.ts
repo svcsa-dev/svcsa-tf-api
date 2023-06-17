@@ -11,17 +11,17 @@ import {
   playerDataResolver,
   playerPatchResolver,
   playerQueryResolver
-} from './player.schema'
+} from './tf-player.schema'
 
-import type { Application } from '../../declarations'
-import { PlayerService, getOptions } from './player.class'
-import { playerPath, playerMethods } from './player.shared'
+import type { Application } from '../../../declarations'
+import { PlayerService, getOptions } from './tf-player.class'
+import { playerPath, playerMethods } from './tf-player.shared'
 
-export * from './player.class'
-export * from './player.schema'
+export * from './tf-player.class'
+export * from './tf-player.schema'
 
 // A configure function that registers the service and its hooks via `app.configure`
-export const player = (app: Application) => {
+export const tfPlayer = (app: Application) => {
   // Register our service on the Feathers application
   app.use(playerPath, new PlayerService(getOptions(app)), {
     // A list of all methods this service exposes externally
@@ -52,7 +52,7 @@ export const player = (app: Application) => {
 }
 
 // Add this service to the service type index
-declare module '../../declarations' {
+declare module '../../../declarations' {
   interface ServiceTypes {
     [playerPath]: PlayerService
   }

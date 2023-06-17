@@ -3,16 +3,16 @@ import { resolve } from '@feathersjs/schema'
 import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
 
-import type { HookContext } from '../../declarations'
-import { dataValidator, queryValidator } from '../../validators'
-import { toLowerCaseProperty } from '../../utilities/property-name-converter';
+import type { HookContext } from '../../../declarations'
+import { dataValidator, queryValidator } from '../../../validators'
+import { toLowerCaseProperty } from '../../../utilities/property-name-converter';
 
 // Main data model schema
 export const playerSchema = Type.Object(
   {
     id: Type.Number(),
     birthday: Type.String({ format: 'date-time' }),
-    photosrc: Type.String(),
+    photosrc: Type.Optional(Type.String()),
     sex: Type.String(),
     email: Type.String(),
     name: Type.String(),
@@ -25,6 +25,9 @@ export const playerValidator = getValidator(playerSchema, dataValidator)
 export const playerResolver = resolve<Player, HookContext>({
   photosrc: async (value) => {
     // Return the photo avatar URL
+    if(!value) {
+      return 'null';
+    }
     return `http://svcsa.org/uploads/${value}`;
   },
 

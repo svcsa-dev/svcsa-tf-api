@@ -7,7 +7,9 @@
   "keywords": [
     "feathers"
   ],
-  "author": {"name": "Xin Liu"},
+  "author": {
+    "name": "Xin Liu"
+  },
   "contributors": [],
   "bugs": {},
   "engines": {
@@ -58,7 +60,7 @@
     "@feathersjs/socketio": "^5.0.0",
     "@feathersjs/transport-commons": "^5.0.0",
     "@feathersjs/typebox": "^5.0.0",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.1",
     "knex": "^2.4.2",
     "mysql": "^2.18.1",
     "winston": "^3.8.2"
