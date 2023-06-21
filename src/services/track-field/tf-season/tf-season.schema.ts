@@ -14,7 +14,12 @@ export const seasonSchema = Type.Object(
     {
       id: Type.Number(),
       name: Type.String(),
-      date: Type.String({ format: 'date' }),
+      date: Type.String({ format: 'date-time' }),
+      scheduledDate: Type.Object({
+        month: Type.Number(),
+        day: Type.Number(),
+        year: Type.Number(),
+      }),
       venue: Type.String()
     },
     { $id: 'Season', additionalProperties: false }
@@ -23,7 +28,17 @@ export const seasonSchema = Type.Object(
 
 export type Season = Static<typeof seasonSchema>
 export const seasonValidator = getValidator(seasonSchema, dataValidator)
-export const seasonResolver = resolve<Season, HookContext>({}, {
+export const seasonResolver = resolve<Season, HookContext>({
+  scheduledDate: async (_, season) => {
+    const dateObj = new Date(season["date"])
+
+    return {
+      month: dateObj.getMonth() + 1,
+      day: dateObj.getDate(),
+      year: dateObj.getFullYear()
+    }
+  },
+  }, {
   converter: async (rawData) => {
     return toLowerCaseProperty(rawData, seasonSchema)
   } 
