@@ -10,7 +10,7 @@ import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
 
 // Main data model schema
 
-export const seasonSchema = Type.Object(
+export const tfSeasonSchema = Type.Object(
     {
       id: Type.Number(),
       name: Type.String(),
@@ -21,44 +21,44 @@ export const seasonSchema = Type.Object(
   )
   
 
-export type Season = Static<typeof seasonSchema>
-export const seasonValidator = getValidator(seasonSchema, dataValidator)
-export const seasonResolver = resolve<Season, HookContext>({}, {
+export type TfSeason = Static<typeof tfSeasonSchema>
+export const tfSeasonValidator = getValidator(tfSeasonSchema, dataValidator)
+export const tfSeasonResolver = resolve<TfSeason, HookContext>({}, {
   converter: async (rawData) => {
-    return toLowerCaseProperty(rawData, seasonSchema)
+    return toLowerCaseProperty(rawData, tfSeasonSchema)
   } 
 });
 
-export const seasonExternalResolver = resolve<Season, HookContext>({})
+export const tfSeasonExternalResolver = resolve<TfSeason, HookContext>({})
 
 // Schema for creating new entries
-export const seasonDataSchema = Type.Pick(seasonSchema, ['name'], {
-    $id: 'SeasonData'
+export const tfSeasonDataSchema = Type.Pick(tfSeasonSchema, ['name'], {
+    $id: 'TfSeasonData'
   })
-  export type SeasonData = Static<typeof seasonDataSchema>
-  export const seasonDataValidator = getValidator(seasonDataSchema, dataValidator)
-  export const seasonDataResolver = resolve<Season, HookContext>({})
+  export type TfSeasonData = Static<typeof tfSeasonDataSchema>
+  export const tfSeasonDataValidator = getValidator(tfSeasonDataSchema, dataValidator)
+  export const tfSeasonDataResolver = resolve<TfSeason, HookContext>({})
   
   // Schema for updating existing entries
-  export const seasonPatchSchema = Type.Partial(seasonSchema, {
-    $id: 'SeasonPatch'
+  export const tfSeasonPatchSchema = Type.Partial(tfSeasonSchema, {
+    $id: 'TfSeasonPatch'
   })
-  export type SeasonPatch = Static<typeof seasonPatchSchema>
-  export const seasonPatchValidator = getValidator(seasonPatchSchema, dataValidator)
-  export const seasonPatchResolver = resolve<Season, HookContext>({})
+  export type TfSeasonPatch = Static<typeof tfSeasonPatchSchema>
+  export const tfSeasonPatchValidator = getValidator(tfSeasonPatchSchema, dataValidator)
+  export const tfSeasonPatchResolver = resolve<TfSeason, HookContext>({})
   
   // Schema for allowed query properties
-  export const seasonQueryProperties = Type.Pick(seasonSchema, ['id', 'name'])
-  export const seasonQuerySchema = Type.Intersect(
+  export const tfSeasonQueryProperties = Type.Pick(tfSeasonSchema, ['id', 'name'])
+  export const tfSeasonQuerySchema = Type.Intersect(
     [
-      querySyntax(seasonQueryProperties),
+      querySyntax(tfSeasonQueryProperties),
       // Add additional query properties here
       Type.Object({}, { additionalProperties: false })
     ],
     { additionalProperties: false }
   )
-  export type SeasonQuery = Static<typeof seasonQuerySchema>
-  export const seasonQueryValidator = getValidator(seasonQuerySchema, queryValidator)
-  export const seasonQueryResolver = resolve<SeasonQuery, HookContext>({})
+  export type TfSeasonQuery = Static<typeof tfSeasonQuerySchema>
+  export const tfSeasonQueryValidator = getValidator(tfSeasonQuerySchema, queryValidator)
+  export const tfSeasonQueryResolver = resolve<TfSeasonQuery, HookContext>({})
 
   

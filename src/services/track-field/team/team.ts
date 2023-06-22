@@ -3,19 +3,19 @@
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
-  teamDataValidator,
-  teamPatchValidator,
-  teamQueryValidator,
-  teamResolver,
-  teamExternalResolver,
-  teamDataResolver,
-  teamPatchResolver,
-  teamQueryResolver
+  tfTeamDataValidator,
+  tfTeamPatchValidator,
+  tfTeamQueryValidator,
+  tfTeamResolver,
+  tfTeamExternalResolver,
+  tfTeamDataResolver,
+  tfTeamPatchResolver,
+  tfTeamQueryResolver
 } from './team.schema'
 
 import type { Application } from '../../../declarations'
-import { TeamService, getOptions } from './team.class'
-import { teamPath, teamMethods } from './team.shared'
+import { TfTeamService, getOptions } from './team.class'
+import { tfTeamPath, tfTeamMethods } from './team.shared'
 
 export * from './team.class'
 export * from './team.schema'
@@ -23,23 +23,23 @@ export * from './team.schema'
 // A configure function that registers the service and its hooks via `app.configure`
 export const tfTeam = (app: Application) => {
   // Register our service on the Feathers application
-  app.use(teamPath, new TeamService(getOptions(app)), {
+  app.use(tfTeamPath, new TfTeamService(getOptions(app)), {
     // A list of all methods this service exposes externally
-    methods: teamMethods,
+    methods: tfTeamMethods,
     // You can add additional custom events to be sent to clients here
     events: []
   })
   // Initialize hooks
-  app.service(teamPath).hooks({
+  app.service(tfTeamPath).hooks({
     around: {
-      all: [schemaHooks.resolveExternal(teamExternalResolver), schemaHooks.resolveResult(teamResolver)]
+      all: [schemaHooks.resolveExternal(tfTeamExternalResolver), schemaHooks.resolveResult(tfTeamResolver)]
     },
     before: {
-      all: [schemaHooks.validateQuery(teamQueryValidator), schemaHooks.resolveQuery(teamQueryResolver)],
+      all: [schemaHooks.validateQuery(tfTeamQueryValidator), schemaHooks.resolveQuery(tfTeamQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(teamDataValidator), schemaHooks.resolveData(teamDataResolver)],
-      patch: [schemaHooks.validateData(teamPatchValidator), schemaHooks.resolveData(teamPatchResolver)],
+      create: [schemaHooks.validateData(tfTeamDataValidator), schemaHooks.resolveData(tfTeamDataResolver)],
+      patch: [schemaHooks.validateData(tfTeamPatchValidator), schemaHooks.resolveData(tfTeamPatchResolver)],
       remove: []
     },
     after: {
@@ -54,6 +54,6 @@ export const tfTeam = (app: Application) => {
 // Add this service to the service type index
 declare module '../../../declarations' {
   interface ServiceTypes {
-    [teamPath]: TeamService
+    [tfTeamPath]: TfTeamService
   }
 }

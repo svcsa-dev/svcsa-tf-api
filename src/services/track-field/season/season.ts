@@ -3,19 +3,19 @@
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
-  seasonDataValidator,
-  seasonPatchValidator,
-  seasonQueryValidator,
-  seasonResolver,
-  seasonExternalResolver,
-  seasonDataResolver,
-  seasonPatchResolver,
-  seasonQueryResolver
+  tfSeasonDataValidator,
+  tfSeasonPatchValidator,
+  tfSeasonQueryValidator,
+  tfSeasonResolver,
+  tfSeasonExternalResolver,
+  tfSeasonDataResolver,
+  tfSeasonPatchResolver,
+  tfSeasonQueryResolver
 } from './season.schema'
 
 import type { Application } from '../../../declarations'
-import { SeasonService, getOptions } from './season.class'
-import { seasonPath, seasonMethods } from './season.shared'
+import { TfSeasonService, getOptions } from './season.class'
+import { tfSeasonPath, tfSeasonMethods } from './season.shared'
 
 export * from './season.class'
 export * from './season.schema'
@@ -23,23 +23,23 @@ export * from './season.schema'
 // A configure function that registers the service and its hooks via `app.configure`
 export const tfSeason = (app: Application) => {
   // Register our service on the Feathers application
-  app.use(seasonPath, new SeasonService(getOptions(app)), {
+  app.use(tfSeasonPath, new TfSeasonService(getOptions(app)), {
     // A list of all methods this service exposes externally
-    methods: seasonMethods,
+    methods: tfSeasonMethods,
     // You can add additional custom events to be sent to clients here
     events: []
   })
   // Initialize hooks
-  app.service(seasonPath).hooks({
+  app.service(tfSeasonPath).hooks({
     around: {
-      all: [schemaHooks.resolveExternal(seasonExternalResolver), schemaHooks.resolveResult(seasonResolver)]
+      all: [schemaHooks.resolveExternal(tfSeasonExternalResolver), schemaHooks.resolveResult(tfSeasonResolver)]
     },
     before: {
-      all: [schemaHooks.validateQuery(seasonQueryValidator), schemaHooks.resolveQuery(seasonQueryResolver)],
+      all: [schemaHooks.validateQuery(tfSeasonQueryValidator), schemaHooks.resolveQuery(tfSeasonQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(seasonDataValidator), schemaHooks.resolveData(seasonDataResolver)],
-      patch: [schemaHooks.validateData(seasonPatchValidator), schemaHooks.resolveData(seasonPatchResolver)],
+      create: [schemaHooks.validateData(tfSeasonDataValidator), schemaHooks.resolveData(tfSeasonDataResolver)],
+      patch: [schemaHooks.validateData(tfSeasonPatchValidator), schemaHooks.resolveData(tfSeasonPatchResolver)],
       remove: []
     },
     after: {
@@ -54,6 +54,6 @@ export const tfSeason = (app: Application) => {
 // Add this service to the service type index
 declare module '../../../declarations' {
   interface ServiceTypes {
-    [seasonPath]: SeasonService
+    [tfSeasonPath]: TfSeasonService
   }
 }

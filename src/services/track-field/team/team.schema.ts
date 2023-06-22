@@ -10,7 +10,7 @@ import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
 
 // Main data model schema
 
-export const teamSchema = Type.Object(
+export const tfTeamSchema = Type.Object(
     {
       id: Type.Number(),
       name: Type.String(),
@@ -26,9 +26,9 @@ export const teamSchema = Type.Object(
   )
   
 
-export type Team = Static<typeof teamSchema>
-export const teamValidator = getValidator(teamSchema, dataValidator)
-export const teamResolver = resolve<Team, HookContext>({
+export type TfTeam = Static<typeof tfTeamSchema>
+export const tfTeamValidator = getValidator(tfTeamSchema, dataValidator)
+export const tfTeamResolver = resolve<TfTeam, HookContext>({
   photosrc: async (value) => {
     if(!value) {
       return 'null';
@@ -44,40 +44,40 @@ export const teamResolver = resolve<Team, HookContext>({
   }, 
 }, {
   converter: async (rawData) => {
-    return toLowerCaseProperty(rawData, teamSchema)
+    return toLowerCaseProperty(rawData, tfTeamSchema)
   } 
 });
 
-export const teamExternalResolver = resolve<Team, HookContext>({})
+export const tfTeamExternalResolver = resolve<TfTeam, HookContext>({})
 
 // Schema for creating new entries
-export const teamDataSchema = Type.Pick(teamSchema, ['name'], {
-    $id: 'TeamData'
+export const tfTeamDataSchema = Type.Pick(tfTeamSchema, ['name'], {
+    $id: 'TfTeamData'
   })
-  export type TeamData = Static<typeof teamDataSchema>
-  export const teamDataValidator = getValidator(teamDataSchema, dataValidator)
-  export const teamDataResolver = resolve<Team, HookContext>({})
+  export type TfTeamData = Static<typeof tfTeamDataSchema>
+  export const tfTeamDataValidator = getValidator(tfTeamDataSchema, dataValidator)
+  export const tfTeamDataResolver = resolve<TfTeam, HookContext>({})
   
   // Schema for updating existing entries
-  export const teamPatchSchema = Type.Partial(teamSchema, {
-    $id: 'TeamPatch'
+  export const tfTeamPatchSchema = Type.Partial(tfTeamSchema, {
+    $id: 'TfTeamPatch'
   })
-  export type TeamPatch = Static<typeof teamPatchSchema>
-  export const teamPatchValidator = getValidator(teamPatchSchema, dataValidator)
-  export const teamPatchResolver = resolve<Team, HookContext>({})
+  export type TfTeamPatch = Static<typeof tfTeamPatchSchema>
+  export const tfTeamPatchValidator = getValidator(tfTeamPatchSchema, dataValidator)
+  export const tfTeamPatchResolver = resolve<TfTeam, HookContext>({})
   
   // Schema for allowed query properties
-  export const teamQueryProperties = Type.Pick(teamSchema, ['id', 'name'])
-  export const teamQuerySchema = Type.Intersect(
+  export const tfTeamQueryProperties = Type.Pick(tfTeamSchema, ['id', 'name'])
+  export const tfTeamQuerySchema = Type.Intersect(
     [
-      querySyntax(teamQueryProperties),
+      querySyntax(tfTeamQueryProperties),
       // Add additional query properties here
       Type.Object({}, { additionalProperties: false })
     ],
     { additionalProperties: false }
   )
-  export type TeamQuery = Static<typeof teamQuerySchema>
-  export const teamQueryValidator = getValidator(teamQuerySchema, queryValidator)
-  export const teamQueryResolver = resolve<TeamQuery, HookContext>({})
+  export type TfTeamQuery = Static<typeof tfTeamQuerySchema>
+  export const tfTeamQueryValidator = getValidator(tfTeamQuerySchema, queryValidator)
+  export const tfTeamQueryResolver = resolve<TfTeamQuery, HookContext>({})
 
   

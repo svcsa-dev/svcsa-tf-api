@@ -1,27 +1,27 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.shared.html
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../../client'
-import type { Season, SeasonData, SeasonPatch, SeasonQuery, SeasonService } from './season.class'
+import type { TfSeason, TfSeasonData, TfSeasonPatch, TfSeasonQuery, TfSeasonService } from './season.class'
 
-export type { Season, SeasonData, SeasonPatch, SeasonQuery }
+export type { TfSeason, TfSeasonData, TfSeasonPatch, TfSeasonQuery }
 
-export type SeasonClientService = Pick<SeasonService<Params<SeasonQuery>>, (typeof seasonMethods)[number]>
+export type TfSeasonClientService = Pick<TfSeasonService<Params<TfSeasonQuery>>, (typeof tfSeasonMethods)[number]>
 
-export const seasonPath = '/track-field/season'
+export const tfSeasonPath = '/track-field/season'
 
-export const seasonMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
+export const tfSeasonMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
-export const seasonClient = (client: ClientApplication) => {
+export const tfSeasonClient = (client: ClientApplication) => {
   const connection = client.get('connection')
 
-  client.use(seasonPath, connection.service(seasonPath), {
-    methods: seasonMethods
+  client.use(tfSeasonPath, connection.service(tfSeasonPath), {
+    methods: tfSeasonMethods
   })
 }
 
 // Add this service to the client service type index
 declare module '../../../client' {
   interface ServiceTypes {
-    [seasonPath]: SeasonClientService
+    [tfSeasonPath]: TfSeasonClientService
   }
 }
