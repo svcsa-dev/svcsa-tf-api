@@ -2,22 +2,22 @@ import type { Application } from '../../../declarations'
 import type { Params } from '@feathersjs/feathers'
 import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
-import type { Season, SeasonData, SeasonPatch, SeasonQuery } from './tf-season.schema'
-export type { Season, SeasonData, SeasonPatch, SeasonQuery }
+import type { Team, TeamData, TeamPatch, TeamQuery } from './team.schema'
+export type { Team, TeamData, TeamPatch, TeamQuery }
 
-export interface SeasonParams extends KnexAdapterParams<SeasonQuery> {}
+export interface TeamParams extends KnexAdapterParams<TeamQuery> {}
 // By default calls the standard Knex adapter service methods but can be customized with your own functionality.
-export class SeasonService<ServiceParams extends Params = SeasonParams> extends KnexService<
-  Season,
-  SeasonData,
-  SeasonParams,
-  SeasonPatch
+export class TeamService<ServiceParams extends Params = TeamParams> extends KnexService<
+  Team,
+  TeamData,
+  TeamParams,
+  TeamPatch
 > {}
 
 export const getOptions = (app: Application): KnexAdapterOptions => {
     return {
       paginate: app.get('paginate'),
       Model: app.get('mysqlClient'),
-      name: 'ctfc_season'
+      name: 'ctfc_team'
     }
   }

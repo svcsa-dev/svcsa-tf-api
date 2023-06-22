@@ -11,14 +11,14 @@ import {
   playerDataResolver,
   playerPatchResolver,
   playerQueryResolver
-} from './tf-player.schema'
+} from './player.schema'
 
 import type { Application } from '../../../declarations'
-import { PlayerService, getOptions } from './tf-player.class'
-import { playerPath, playerMethods } from './tf-player.shared'
+import { PlayerService, getOptions } from './player.class'
+import { playerPath, playerMethods } from './player.shared'
 
-export * from './tf-player.class'
-export * from './tf-player.schema'
+export * from './player.class'
+export * from './player.schema'
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const tfPlayer = (app: Application) => {

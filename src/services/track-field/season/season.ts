@@ -11,14 +11,14 @@ import {
   seasonDataResolver,
   seasonPatchResolver,
   seasonQueryResolver
-} from './tf-season.schema'
+} from './season.schema'
 
 import type { Application } from '../../../declarations'
-import { SeasonService, getOptions } from './tf-season.class'
-import { seasonPath, seasonMethods } from './tf-season.shared'
+import { SeasonService, getOptions } from './season.class'
+import { seasonPath, seasonMethods } from './season.shared'
 
-export * from './tf-season.class'
-export * from './tf-season.schema'
+export * from './season.class'
+export * from './season.schema'
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const tfSeason = (app: Application) => {

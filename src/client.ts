@@ -4,8 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
-import { playerClient } from './services/track-field/tf-player/tf-player.shared'
-export type { Player, PlayerData, PlayerQuery, PlayerPatch } from './services/track-field/tf-player/tf-player.shared'
+import { playerClient } from './services/track-field/player/player.shared'
+export type { Player, PlayerData, PlayerQuery, PlayerPatch } from './services/track-field/player/player.shared'
+
+import { seasonClient } from './services/track-field/season/season.shared'
+export type { Season, SeasonData, SeasonQuery, SeasonPatch } from './services/track-field/season/season.shared'
+
+import { teamClient } from './services/track-field/team/team.shared'
+export type { Team, TeamData, TeamQuery, TeamPatch } from './services/track-field/team/team.shared'
 
 export interface Configuration {
   connection: TransportConnection<ServiceTypes>
@@ -34,5 +40,7 @@ export const createClient = <Configuration = any>(
   client.set('connection', connection)
 
   client.configure(playerClient)
+  client.configure(seasonClient)
+  client.configure(teamClient)
   return client
 }

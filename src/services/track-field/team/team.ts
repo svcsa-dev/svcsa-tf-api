@@ -11,14 +11,14 @@ import {
   teamDataResolver,
   teamPatchResolver,
   teamQueryResolver
-} from './tf-team.schema'
+} from './team.schema'
 
 import type { Application } from '../../../declarations'
-import { TeamService, getOptions } from './tf-team.class'
-import { teamPath, teamMethods } from './tf-team.shared'
+import { TeamService, getOptions } from './team.class'
+import { teamPath, teamMethods } from './team.shared'
 
-export * from './tf-team.class'
-export * from './tf-team.schema'
+export * from './team.class'
+export * from './team.schema'
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const tfTeam = (app: Application) => {

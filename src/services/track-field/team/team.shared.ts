@@ -1,7 +1,7 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.shared.html
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../../client'
-import type { Team, TeamData, TeamPatch, TeamQuery, TeamService } from './tf-team.class'
+import type { Team, TeamData, TeamPatch, TeamQuery, TeamService } from './team.class'
 
 export type { Team, TeamData, TeamPatch, TeamQuery }
 

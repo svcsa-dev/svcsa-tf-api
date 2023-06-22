@@ -1,6 +1,6 @@
-import { tfPlayer } from './track-field/tf-player/tf-player'
-import { tfTeam } from './track-field/tf-team/tf-team'
-import { tfSeason } from './track-field/tf-season/tf-season'
+import { tfPlayer } from './track-field/player/player'
+import { tfTeam } from './track-field/team/team'
+import { tfSeason } from './track-field/season/season'
 // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html#configure-functions
 import type { Application } from '../declarations'
 

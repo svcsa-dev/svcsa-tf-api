@@ -1,7 +1,7 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.shared.html
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../../client'
-import type { Season, SeasonData, SeasonPatch, SeasonQuery, SeasonService } from './tf-season.class'
+import type { Season, SeasonData, SeasonPatch, SeasonQuery, SeasonService } from './season.class'
 
 export type { Season, SeasonData, SeasonPatch, SeasonQuery }
 
