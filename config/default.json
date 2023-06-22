@@ -12,5 +12,25 @@
   "mysql": {
     "client": "mysql",
     "connection": "mysql://root:@localhost:3306/svcsa-tf-api"
+  },
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "authStrategies": [
+      "jwt",
+      "local"
+    ],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    }
   }
 }

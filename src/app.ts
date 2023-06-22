@@ -1,7 +1,9 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html
 // dotenv replaces all environmental variables from ~/.env in ~/config/custom-environment-variables.json
 import * as dotenv from 'dotenv'
-dotenv.config();
+const dotEnvPath = process.env.NODE_ENV === "development" ? ".env.development" : ".env"
+
+dotenv.config({path: dotEnvPath});
 
 import { feathers } from '@feathersjs/feathers'
 import configuration from '@feathersjs/configuration'
