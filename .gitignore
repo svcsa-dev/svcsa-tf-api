@@ -7,3 +7,7 @@ node_modules
 
 # We don't support modify database at the moment.
 migrations/*
+
+lib
+
+.env.test
