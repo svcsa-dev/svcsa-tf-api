@@ -4,11 +4,24 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { tfItemClient } from './services/track-field/item/item.shared'
+export type { TfItem, TfItemData, TfItemQuery, TfItemPatch } from './services/track-field/item/item.shared'
+
 import { playerClient } from './services/track-field/player/player.shared'
-export type { Player, PlayerData, PlayerQuery, PlayerPatch } from './services/track-field/player/player.shared'
+export type {
+  Player,
+  PlayerData,
+  PlayerQuery,
+  PlayerPatch
+} from './services/track-field/player/player.shared'
 
 import { seasonClient } from './services/track-field/season/season.shared'
-export type { Season, SeasonData, SeasonQuery, SeasonPatch } from './services/track-field/season/season.shared'
+export type {
+  Season,
+  SeasonData,
+  SeasonQuery,
+  SeasonPatch
+} from './services/track-field/season/season.shared'
 
 import { teamClient } from './services/track-field/team/team.shared'
 export type { Team, TeamData, TeamQuery, TeamPatch } from './services/track-field/team/team.shared'
@@ -42,5 +55,6 @@ export const createClient = <Configuration = any>(
   client.configure(playerClient)
   client.configure(seasonClient)
   client.configure(teamClient)
+  client.configure(tfItemClient)
   return client
 }

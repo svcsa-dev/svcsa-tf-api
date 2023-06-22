@@ -8,7 +8,7 @@ import { dataValidator, queryValidator } from '../../../validators'
 import { toLowerCaseProperty } from '../../../utilities/property-name-converter';
 
 // Main data model schema
-export const playerSchema = Type.Object(
+export const tfPlayerSchema = Type.Object(
   {
     id: Type.Number(),
     birthday: Type.String({ format: 'date-time' }),
@@ -18,11 +18,11 @@ export const playerSchema = Type.Object(
     name: Type.String(),
     birthyear: Type.Number()
   },
-  { $id: 'Player', additionalProperties: false }
+  { $id: 'TfPlayer', additionalProperties: false }
 )
-export type Player = Static<typeof playerSchema>
-export const playerValidator = getValidator(playerSchema, dataValidator)
-export const playerResolver = resolve<Player, HookContext>({
+export type TfPlayer = Static<typeof tfPlayerSchema>
+export const tfPlayerValidator = getValidator(tfPlayerSchema, dataValidator)
+export const tfPlayerResolver = resolve<TfPlayer, HookContext>({
   photosrc: async (value) => {
     // Return the photo avatar URL
     if(!value) {
@@ -31,46 +31,46 @@ export const playerResolver = resolve<Player, HookContext>({
     return `http://svcsa.org/uploads/${value}`;
   },
 
-  birthyear: async (_, player) => {
-    const dateObj = new Date(player["birthday"])
+  birthyear: async (_, tfPlayer) => {
+    const dateObj = new Date(tfPlayer["birthday"])
 
     return dateObj.getFullYear();
   },
   birthday: async () => undefined,
 }, {
   converter: async (rawData) => {
-    return toLowerCaseProperty(rawData, playerSchema);
+    return toLowerCaseProperty(rawData, tfPlayerSchema);
   }
 });
 
-export const playerExternalResolver = resolve<Player, HookContext>({})
+export const tfPlayerExternalResolver = resolve<TfPlayer, HookContext>({})
 
 // Schema for creating new entries
-export const playerDataSchema = Type.Pick(playerSchema, ['name'], {
-  $id: 'PlayerData'
+export const tfPlayerDataSchema = Type.Pick(tfPlayerSchema, ['name'], {
+  $id: 'TfPlayerData'
 })
-export type PlayerData = Static<typeof playerDataSchema>
-export const playerDataValidator = getValidator(playerDataSchema, dataValidator)
-export const playerDataResolver = resolve<Player, HookContext>({})
+export type TfPlayerData = Static<typeof tfPlayerDataSchema>
+export const tfPlayerDataValidator = getValidator(tfPlayerDataSchema, dataValidator)
+export const tfPlayerDataResolver = resolve<TfPlayer, HookContext>({})
 
 // Schema for updating existing entries
-export const playerPatchSchema = Type.Partial(playerSchema, {
-  $id: 'PlayerPatch'
+export const tfPlayerPatchSchema = Type.Partial(tfPlayerSchema, {
+  $id: 'TfPlayerPatch'
 })
-export type PlayerPatch = Static<typeof playerPatchSchema>
-export const playerPatchValidator = getValidator(playerPatchSchema, dataValidator)
-export const playerPatchResolver = resolve<Player, HookContext>({})
+export type TfPlayerPatch = Static<typeof tfPlayerPatchSchema>
+export const tfPlayerPatchValidator = getValidator(tfPlayerPatchSchema, dataValidator)
+export const tfPlayerPatchResolver = resolve<TfPlayer, HookContext>({})
 
 // Schema for allowed query properties
-export const playerQueryProperties = Type.Pick(playerSchema, ['id', 'name'])
-export const playerQuerySchema = Type.Intersect(
+export const tfPlayerQueryProperties = Type.Pick(tfPlayerSchema, ['id', 'name'])
+export const tfPlayerQuerySchema = Type.Intersect(
   [
-    querySyntax(playerQueryProperties),
+    querySyntax(tfPlayerQueryProperties),
     // Add additional query properties here
     Type.Object({}, { additionalProperties: false })
   ],
   { additionalProperties: false }
 )
-export type PlayerQuery = Static<typeof playerQuerySchema>
-export const playerQueryValidator = getValidator(playerQuerySchema, queryValidator)
-export const playerQueryResolver = resolve<PlayerQuery, HookContext>({})
+export type TfPlayerQuery = Static<typeof tfPlayerQuerySchema>
+export const tfPlayerQueryValidator = getValidator(tfPlayerQuerySchema, queryValidator)
+export const tfPlayerQueryResolver = resolve<TfPlayerQuery, HookContext>({})

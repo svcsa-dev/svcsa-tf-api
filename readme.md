@@ -40,11 +40,11 @@ This project uses [Feathers](http://feathersjs.com). An open source framework fo
 ```
 - Services
  | -- track-field
-   |-- tf-player
-   |-- tf-team
+   |-- player
+   |-- team
  | -- basketball
-   | -- bb-player
-   | -- bb-team
+   | -- player
+   | -- team
 ```
 
 - Two top level modules: `track-field` and `basketball`

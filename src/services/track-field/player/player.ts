@@ -3,19 +3,19 @@
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
-  playerDataValidator,
-  playerPatchValidator,
-  playerQueryValidator,
-  playerResolver,
-  playerExternalResolver,
-  playerDataResolver,
-  playerPatchResolver,
-  playerQueryResolver
+  tfPlayerDataValidator,
+  tfPlayerPatchValidator,
+  tfPlayerQueryValidator,
+  tfPlayerResolver,
+  tfPlayerExternalResolver,
+  tfPlayerDataResolver,
+  tfPlayerPatchResolver,
+  tfPlayerQueryResolver
 } from './player.schema'
 
 import type { Application } from '../../../declarations'
-import { PlayerService, getOptions } from './player.class'
-import { playerPath, playerMethods } from './player.shared'
+import { TfPlayerService, getOptions } from './player.class'
+import { tfPlayerPath, tfPlayerMethods } from './player.shared'
 
 export * from './player.class'
 export * from './player.schema'
@@ -23,23 +23,23 @@ export * from './player.schema'
 // A configure function that registers the service and its hooks via `app.configure`
 export const tfPlayer = (app: Application) => {
   // Register our service on the Feathers application
-  app.use(playerPath, new PlayerService(getOptions(app)), {
+  app.use(tfPlayerPath, new TfPlayerService(getOptions(app)), {
     // A list of all methods this service exposes externally
-    methods: playerMethods,
+    methods: tfPlayerMethods,
     // You can add additional custom events to be sent to clients here
     events: []
   })
   // Initialize hooks
-  app.service(playerPath).hooks({
+  app.service(tfPlayerPath).hooks({
     around: {
-      all: [schemaHooks.resolveExternal(playerExternalResolver), schemaHooks.resolveResult(playerResolver)]
+      all: [schemaHooks.resolveExternal(tfPlayerExternalResolver), schemaHooks.resolveResult(tfPlayerResolver)]
     },
     before: {
-      all: [schemaHooks.validateQuery(playerQueryValidator), schemaHooks.resolveQuery(playerQueryResolver)],
+      all: [schemaHooks.validateQuery(tfPlayerQueryValidator), schemaHooks.resolveQuery(tfPlayerQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(playerDataValidator), schemaHooks.resolveData(playerDataResolver)],
-      patch: [schemaHooks.validateData(playerPatchValidator), schemaHooks.resolveData(playerPatchResolver)],
+      create: [schemaHooks.validateData(tfPlayerDataValidator), schemaHooks.resolveData(tfPlayerDataResolver)],
+      patch: [schemaHooks.validateData(tfPlayerPatchValidator), schemaHooks.resolveData(tfPlayerPatchResolver)],
       remove: []
     },
     after: {
@@ -54,6 +54,6 @@ export const tfPlayer = (app: Application) => {
 // Add this service to the service type index
 declare module '../../../declarations' {
   interface ServiceTypes {
-    [playerPath]: PlayerService
+    [tfPlayerPath]: TfPlayerService
   }
 }

@@ -1,27 +1,27 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.shared.html
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../../client'
-import type { Player, PlayerData, PlayerPatch, PlayerQuery, PlayerService } from './player.class'
+import type { TfPlayer, TfPlayerData, TfPlayerPatch, TfPlayerQuery, TfPlayerService } from './player.class'
 
-export type { Player, PlayerData, PlayerPatch, PlayerQuery }
+export type { TfPlayer, TfPlayerData, TfPlayerPatch, TfPlayerQuery }
 
-export type PlayerClientService = Pick<PlayerService<Params<PlayerQuery>>, (typeof playerMethods)[number]>
+export type TfPlayerClientService = Pick<TfPlayerService<Params<TfPlayerQuery>>, (typeof tfPlayerMethods)[number]>
 
-export const playerPath = '/track-field/player'
+export const tfPlayerPath = '/track-field/player'
 
-export const playerMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
+export const tfPlayerMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
-export const playerClient = (client: ClientApplication) => {
+export const tfPlayerClient = (client: ClientApplication) => {
   const connection = client.get('connection')
 
-  client.use(playerPath, connection.service(playerPath), {
-    methods: playerMethods
+  client.use(tfPlayerPath, connection.service(tfPlayerPath), {
+    methods: tfPlayerMethods
   })
 }
 
 // Add this service to the client service type index
 declare module '../../../client' {
   interface ServiceTypes {
-    [playerPath]: PlayerClientService
+    [tfPlayerPath]: TfPlayerClientService
   }
 }
