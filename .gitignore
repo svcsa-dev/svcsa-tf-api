@@ -4,7 +4,6 @@ node_modules
 
 **.env
 .env
-.env.development
 
 # We don't support modify database at the moment.
 migrations/*
