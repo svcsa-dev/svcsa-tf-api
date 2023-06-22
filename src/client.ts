@@ -7,24 +7,24 @@ import type { AuthenticationClientOptions } from '@feathersjs/authentication-cli
 import { tfItemClient } from './services/track-field/item/item.shared'
 export type { TfItem, TfItemData, TfItemQuery, TfItemPatch } from './services/track-field/item/item.shared'
 
-import { playerClient } from './services/track-field/player/player.shared'
+import { tfPlayerClient } from './services/track-field/player/player.shared'
 export type {
-  Player,
-  PlayerData,
-  PlayerQuery,
-  PlayerPatch
+  TfPlayer,
+  TfPlayerData,
+  TfPlayerQuery,
+  TfPlayerPatch
 } from './services/track-field/player/player.shared'
 
-import { seasonClient } from './services/track-field/season/season.shared'
+import { tfSeasonClient } from './services/track-field/season/season.shared'
 export type {
-  Season,
-  SeasonData,
-  SeasonQuery,
-  SeasonPatch
+  TfSeason,
+  TfSeasonData,
+  TfSeasonQuery,
+  TfSeasonPatch
 } from './services/track-field/season/season.shared'
 
-import { teamClient } from './services/track-field/team/team.shared'
-export type { Team, TeamData, TeamQuery, TeamPatch } from './services/track-field/team/team.shared'
+import { tfTeamClient } from './services/track-field/team/team.shared'
+export type { TfTeam, TfTeamData, TfTeamQuery, TfTeamPatch } from './services/track-field/team/team.shared'
 
 export interface Configuration {
   connection: TransportConnection<ServiceTypes>
@@ -52,9 +52,9 @@ export const createClient = <Configuration = any>(
   client.configure(authenticationClient(authenticationOptions))
   client.set('connection', connection)
 
-  client.configure(playerClient)
-  client.configure(seasonClient)
-  client.configure(teamClient)
+  client.configure(tfPlayerClient)
+  client.configure(tfSeasonClient)
+  client.configure(tfTeamClient)
   client.configure(tfItemClient)
   return client
 }
