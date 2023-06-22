@@ -26,7 +26,5 @@ az container delete -n svcsa-tf-api-container -g svcsa-deploy-aci
 ### Create new container
 
 ```
-az container create  --resource-group svcsa-deploy-aci --name 
-svcsa-tf-api-container \
-    --image svcbavideoacr.azurecr.io/svcsa-tf-api:latest --dns-name-label svcsa-tf-api --ports 3030
+az container create  --resource-group svcsa-deploy-aci --name svcsa-tf-api-container --image svcbavideoacr.azurecr.io/svcsa-tf-api:latest --dns-name-label svcsa-tf-api --ports 3030
 ```
