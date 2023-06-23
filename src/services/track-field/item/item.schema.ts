@@ -12,15 +12,30 @@ export const tfItemSchema = Type.Object(
   {
     id: Type.Number(),
     name: Type.String(),
-    issingle: Type.Number(),
-    istrack: Type.Number(),
+    issingle: Type.String(),
+    istrack: Type.String(),
     heatsize: Type.Number(),
   },
   { $id: 'TfItem', additionalProperties: false }
 )
 export type TfItem = Static<typeof tfItemSchema>
 export const tfItemValidator = getValidator(tfItemSchema, dataValidator)
-export const tfItemResolver = resolve<TfItem, HookContext>({}, {
+export const tfItemResolver = resolve<TfItem, HookContext>({
+  issingle: async (value) => {
+    // Return the photo avatar URL
+    if(value == "1") {
+      return 'true';
+    }
+    return 'false';
+  },
+  istrack: async (value) => {
+    // Return the photo avatar URL
+    if(value == "1") {
+      return 'true';
+    }
+    return 'false';
+  },
+}, {
   converter: async (rawData) => {
     return toLowerCaseProperty(rawData, tfItemSchema)
   } 
