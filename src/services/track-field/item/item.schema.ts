@@ -5,6 +5,7 @@ import type { Static } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../../declarations'
 import { dataValidator, queryValidator } from '../../../validators'
+import { toLowerCaseProperty } from '../../../utilities/property-name-converter';
 
 // Main data model schema
 export const tfItemSchema = Type.Object(
@@ -19,7 +20,12 @@ export const tfItemSchema = Type.Object(
 )
 export type TfItem = Static<typeof tfItemSchema>
 export const tfItemValidator = getValidator(tfItemSchema, dataValidator)
-export const tfItemResolver = resolve<TfItem, HookContext>({})
+export const tfItemResolver = resolve<TfItem, HookContext>({}, {
+  converter: async (rawData) => {
+    return toLowerCaseProperty(rawData, tfItemSchema)
+  } 
+});
+
 
 export const tfItemExternalResolver = resolve<TfItem, HookContext>({})
 
