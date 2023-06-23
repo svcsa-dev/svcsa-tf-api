@@ -10,7 +10,10 @@ import { dataValidator, queryValidator } from '../../../validators'
 export const tfItemSchema = Type.Object(
   {
     id: Type.Number(),
-    text: Type.String()
+    name: Type.String(),
+    issingle: Type.Number(),
+    istrack: Type.Number(),
+    heatsize: Type.Number(),
   },
   { $id: 'TfItem', additionalProperties: false }
 )
@@ -21,7 +24,7 @@ export const tfItemResolver = resolve<TfItem, HookContext>({})
 export const tfItemExternalResolver = resolve<TfItem, HookContext>({})
 
 // Schema for creating new entries
-export const tfItemDataSchema = Type.Pick(tfItemSchema, ['text'], {
+export const tfItemDataSchema = Type.Pick(tfItemSchema, ['name'], {
   $id: 'TfItemData'
 })
 export type TfItemData = Static<typeof tfItemDataSchema>
@@ -37,7 +40,7 @@ export const tfItemPatchValidator = getValidator(tfItemPatchSchema, dataValidato
 export const tfItemPatchResolver = resolve<TfItem, HookContext>({})
 
 // Schema for allowed query properties
-export const tfItemQueryProperties = Type.Pick(tfItemSchema, ['id', 'text'])
+export const tfItemQueryProperties = Type.Pick(tfItemSchema, ['id', 'name', 'issingle','istrack','heatsize'])
 export const tfItemQuerySchema = Type.Intersect(
   [
     querySyntax(tfItemQueryProperties),
