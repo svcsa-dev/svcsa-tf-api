@@ -22,18 +22,22 @@ export type TfItem = Static<typeof tfItemSchema>
 export const tfItemValidator = getValidator(tfItemSchema, dataValidator)
 export const tfItemResolver = resolve<TfItem, HookContext>({
   issingle: async (value) => {
-    // Return the photo avatar URL
+
     if(value == "1") {
       return 'true';
+    }else if(value == "0"){
+      return 'false'
     }
-    return 'false';
+    return undefined;
   },
   istrack: async (value) => {
-    // Return the photo avatar URL
+
     if(value == "1") {
       return 'true';
+    }else if(value == "0"){
+      return 'false'
     }
-    return 'false';
+    return undefined;
   },
 }, {
   converter: async (rawData) => {
