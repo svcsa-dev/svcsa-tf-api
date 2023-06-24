@@ -34,9 +34,9 @@ export const tfSeasonResolver = resolve<TfSeason, HookContext>({
       return undefined;
     }
     const dateObj = new Date(season["date"]);
-    var month = dateObj.getMonth() + 1;
-    var year=  dateObj.getFullYear();
-    var day=  dateObj.getDate();
+    const month = dateObj.getMonth() + 1;
+    const year=  dateObj.getFullYear();
+    const day=  dateObj.getDate();
     return {
       date: `${year}/${month}/${day}`
     }
