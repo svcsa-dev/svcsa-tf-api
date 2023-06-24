@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { tfAgegroupClient } from './services/track-field/agegroup/agegroup.shared'
+export type {
+  TfAgegroup,
+  TfAgegroupData,
+  TfAgegroupQuery,
+  TfAgegroupPatch
+} from './services/track-field/agegroup/agegroup.shared'
+
 import { tfItemClient } from './services/track-field/item/item.shared'
 export type { TfItem, TfItemData, TfItemQuery, TfItemPatch } from './services/track-field/item/item.shared'
 
@@ -56,5 +64,6 @@ export const createClient = <Configuration = any>(
   client.configure(tfSeasonClient)
   client.configure(tfTeamClient)
   client.configure(tfItemClient)
+  client.configure(tfAgegroupClient)
   return client
 }
