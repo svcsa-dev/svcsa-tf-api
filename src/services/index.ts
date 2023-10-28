@@ -1,3 +1,4 @@
+import { bbPlayer } from './basketball/player/player'
 import { tfItem } from './track-field/item/item'
 import { tfPlayer } from './track-field/player/player'
 import { tfTeam } from './track-field/team/team'
@@ -6,6 +7,7 @@ import { tfSeason } from './track-field/season/season'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(bbPlayer)
   app.configure(tfItem)
   app.configure(tfPlayer)
   app.configure(tfTeam)
