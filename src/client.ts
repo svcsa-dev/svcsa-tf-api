@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { bbCompetitionClient } from './services/basketball/competition/competition.shared'
+export type {
+  BbCompetition,
+  BbCompetitionData,
+  BbCompetitionQuery,
+  BbCompetitionPatch
+} from './services/basketball/competition/competition.shared'
+
 import { bbTeamClient } from './services/basketball/team/team.shared'
 export type { BbTeam, BbTeamData, BbTeamQuery, BbTeamPatch } from './services/basketball/team/team.shared'
 
@@ -69,5 +77,6 @@ export const createClient = <Configuration = any>(
   client.configure(tfItemClient)
   client.configure(bbPlayerClient)
   client.configure(bbTeamClient)
+  client.configure(bbCompetitionClient)
   return client
 }

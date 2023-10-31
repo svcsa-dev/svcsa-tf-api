@@ -1,3 +1,4 @@
+import { bbCompetition } from './basketball/competition/competition'
 import { bbTeam } from './basketball/team/team'
 import { bbPlayer } from './basketball/player/player'
 import { tfItem } from './track-field/item/item'
@@ -8,6 +9,7 @@ import { tfSeason } from './track-field/season/season'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(bbCompetition)
   app.configure(bbTeam)
   app.configure(bbPlayer)
   app.configure(tfItem)
