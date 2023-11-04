@@ -1,0 +1,76 @@
+// // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
+import { resolve } from '@feathersjs/schema'
+import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
+import type { Static } from '@feathersjs/typebox'
+
+import type { HookContext } from '../../../declarations'
+import { dataValidator, queryValidator } from '../../../validators'
+import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
+
+// Main data model schema
+export const bbSeasonSchema = Type.Object(
+  {
+    id: Type.Number(),
+    name: Type.String(),
+    teamnumber: Type.Number(),
+    starttime: Type.String({ format: 'date-time' }),
+    startdate: Type.Object({
+      month: Type.Number(),
+      day: Type.Number(),
+      year: Type.Number()
+    })
+  },
+  { $id: 'BbSeason', additionalProperties: false }
+)
+export type BbSeason = Static<typeof bbSeasonSchema>
+export const bbSeasonValidator = getValidator(bbSeasonSchema, dataValidator)
+export const bbSeasonResolver = resolve<BbSeason, HookContext>(
+  {
+    startdate: async (_, season) => {
+      const dateObj = new Date(season['starttime'])
+
+      return {
+        month: dateObj.getMonth() + 1,
+        day: dateObj.getDate(),
+        year: dateObj.getFullYear()
+      }
+    }
+  },
+  {
+    converter: async (rawData) => {
+      return toLowerCaseProperty(rawData, bbSeasonSchema)
+    }
+  }
+)
+
+export const bbSeasonExternalResolver = resolve<BbSeason, HookContext>({})
+
+// Schema for creating new entries
+export const bbSeasonDataSchema = Type.Pick(bbSeasonSchema, ['name'], {
+  $id: 'BbSeasonData'
+})
+export type BbSeasonData = Static<typeof bbSeasonDataSchema>
+export const bbSeasonDataValidator = getValidator(bbSeasonDataSchema, dataValidator)
+export const bbSeasonDataResolver = resolve<BbSeason, HookContext>({})
+
+// Schema for updating existing entries
+export const bbSeasonPatchSchema = Type.Partial(bbSeasonSchema, {
+  $id: 'BbSeasonPatch'
+})
+export type BbSeasonPatch = Static<typeof bbSeasonPatchSchema>
+export const bbSeasonPatchValidator = getValidator(bbSeasonPatchSchema, dataValidator)
+export const bbSeasonPatchResolver = resolve<BbSeason, HookContext>({})
+
+// Schema for allowed query properties
+export const bbSeasonQueryProperties = Type.Pick(bbSeasonSchema, ['name', 'starttime'])
+export const bbSeasonQuerySchema = Type.Intersect(
+  [
+    querySyntax(bbSeasonQueryProperties),
+    // Add additional query properties here
+    Type.Object({}, { additionalProperties: false })
+  ],
+  { additionalProperties: false }
+)
+export type BbSeasonQuery = Static<typeof bbSeasonQuerySchema>
+export const bbSeasonQueryValidator = getValidator(bbSeasonQuerySchema, queryValidator)
+export const bbSeasonQueryResolver = resolve<BbSeasonQuery, HookContext>({})
