@@ -1,3 +1,4 @@
+import { bbSeasonteam } from './basketball/seasonteam/seasonteam'
 import { bbMatch } from './basketball/match/match'
 import { bbSeason } from './basketball/season/season'
 import { bbCompetition } from './basketball/competition/competition'
@@ -11,6 +12,7 @@ import { tfSeason } from './track-field/season/season'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(bbSeasonteam)
   app.configure(bbMatch)
   app.configure(bbSeason)
   app.configure(bbCompetition)
