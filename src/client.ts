@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { bbTeamrankClient } from './services/basketball/teamrank/teamrank.shared'
+export type {
+  BbTeamrank,
+  BbTeamrankData,
+  BbTeamrankQuery,
+  BbTeamrankPatch
+} from './services/basketball/teamrank/teamrank.shared'
+
 import { bbPlayoffClient } from './services/basketball/playoff/playoff.shared'
 export type {
   BbPlayoff,
@@ -150,5 +158,6 @@ export const createClient = <Configuration = any,>(
   client.configure(bbPlayermatchstatClient)
   client.configure(bbPlayerseasonaverageClient)
   client.configure(bbPlayoffClient)
+  client.configure(bbTeamrankClient)
   return client
 }

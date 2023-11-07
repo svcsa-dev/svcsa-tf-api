@@ -7,7 +7,7 @@
   ],
   "paginate": {
     "default": 10,
-    "max": 50
+    "max": 200
   },
   "mysql": {
     "client": "mysql",
