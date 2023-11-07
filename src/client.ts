@@ -4,6 +4,97 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { bbTeamrankClient } from './services/basketball/teamrank/teamrank.shared'
+export type {
+  BbTeamrank,
+  BbTeamrankData,
+  BbTeamrankQuery,
+  BbTeamrankPatch
+} from './services/basketball/teamrank/teamrank.shared'
+
+import { bbPlayoffClient } from './services/basketball/playoff/playoff.shared'
+export type {
+  BbPlayoff,
+  BbPlayoffData,
+  BbPlayoffQuery,
+  BbPlayoffPatch
+} from './services/basketball/playoff/playoff.shared'
+
+import { bbPlayerseasonaverageClient } from './services/basketball/playerseasonaverage/playerseasonaverage.shared'
+export type {
+  BbPlayerseasonaverage,
+  BbPlayerseasonaverageData,
+  BbPlayerseasonaverageQuery,
+  BbPlayerseasonaveragePatch
+} from './services/basketball/playerseasonaverage/playerseasonaverage.shared'
+
+import { bbPlayermatchstatClient } from './services/basketball/playermatchstat/playermatchstat.shared'
+export type {
+  BbPlayermatchstat,
+  BbPlayermatchstatData,
+  BbPlayermatchstatQuery,
+  BbPlayermatchstatPatch
+} from './services/basketball/playermatchstat/playermatchstat.shared'
+
+import { bbMatchlogClient } from './services/basketball/matchlog/matchlog.shared'
+export type {
+  BbMatchlog,
+  BbMatchlogData,
+  BbMatchlogQuery,
+  BbMatchlogPatch
+} from './services/basketball/matchlog/matchlog.shared'
+
+import { bbSeasonteamplayerClient } from './services/basketball/seasonteamplayer/seasonteamplayer.shared'
+export type {
+  BbSeasonteamplayer,
+  BbSeasonteamplayerData,
+  BbSeasonteamplayerQuery,
+  BbSeasonteamplayerPatch
+} from './services/basketball/seasonteamplayer/seasonteamplayer.shared'
+
+import { bbSeasonteamClient } from './services/basketball/seasonteam/seasonteam.shared'
+export type {
+  BbSeasonteam,
+  BbSeasonteamData,
+  BbSeasonteamQuery,
+  BbSeasonteamPatch
+} from './services/basketball/seasonteam/seasonteam.shared'
+
+import { bbMatchClient } from './services/basketball/match/match.shared'
+export type {
+  BbMatch,
+  BbMatchData,
+  BbMatchQuery,
+  BbMatchPatch
+} from './services/basketball/match/match.shared'
+
+import { bbSeasonClient } from './services/basketball/season/season.shared'
+export type {
+  BbSeason,
+  BbSeasonData,
+  BbSeasonQuery,
+  BbSeasonPatch
+} from './services/basketball/season/season.shared'
+
+import { bbCompetitionClient } from './services/basketball/competition/competition.shared'
+export type {
+  BbCompetition,
+  BbCompetitionData,
+  BbCompetitionQuery,
+  BbCompetitionPatch
+} from './services/basketball/competition/competition.shared'
+
+import { bbTeamClient } from './services/basketball/team/team.shared'
+export type { BbTeam, BbTeamData, BbTeamQuery, BbTeamPatch } from './services/basketball/team/team.shared'
+
+import { bbPlayerClient } from './services/basketball/player/player.shared'
+export type {
+  BbPlayer,
+  BbPlayerData,
+  BbPlayerQuery,
+  BbPlayerPatch
+} from './services/basketball/player/player.shared'
+
 import { tfItemClient } from './services/track-field/item/item.shared'
 export type { TfItem, TfItemData, TfItemQuery, TfItemPatch } from './services/track-field/item/item.shared'
 
@@ -42,7 +133,7 @@ export type ClientApplication = Application<ServiceTypes, Configuration>
  * @see https://dove.feathersjs.com/api/client.html
  * @returns The Feathers client application
  */
-export const createClient = <Configuration = any>(
+export const createClient = <Configuration = any,>(
   connection: TransportConnection<ServiceTypes>,
   authenticationOptions: Partial<AuthenticationClientOptions> = {}
 ) => {
@@ -56,5 +147,17 @@ export const createClient = <Configuration = any>(
   client.configure(tfSeasonClient)
   client.configure(tfTeamClient)
   client.configure(tfItemClient)
+  client.configure(bbPlayerClient)
+  client.configure(bbTeamClient)
+  client.configure(bbCompetitionClient)
+  client.configure(bbSeasonClient)
+  client.configure(bbMatchClient)
+  client.configure(bbSeasonteamClient)
+  client.configure(bbSeasonteamplayerClient)
+  client.configure(bbMatchlogClient)
+  client.configure(bbPlayermatchstatClient)
+  client.configure(bbPlayerseasonaverageClient)
+  client.configure(bbPlayoffClient)
+  client.configure(bbTeamrankClient)
   return client
 }
