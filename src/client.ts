@@ -4,6 +4,22 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { bbPlayermatchstatClient } from './services/basketball/playermatchstat/playermatchstat.shared'
+export type {
+  BbPlayermatchstat,
+  BbPlayermatchstatData,
+  BbPlayermatchstatQuery,
+  BbPlayermatchstatPatch
+} from './services/basketball/playermatchstat/playermatchstat.shared'
+
+import { bbMatchlogClient } from './services/basketball/matchlog/matchlog.shared'
+export type {
+  BbMatchlog,
+  BbMatchlogData,
+  BbMatchlogQuery,
+  BbMatchlogPatch
+} from './services/basketball/matchlog/matchlog.shared'
+
 import { bbSeasonteamplayerClient } from './services/basketball/seasonteamplayer/seasonteamplayer.shared'
 export type {
   BbSeasonteamplayer,
@@ -93,7 +109,7 @@ export type ClientApplication = Application<ServiceTypes, Configuration>
  * @see https://dove.feathersjs.com/api/client.html
  * @returns The Feathers client application
  */
-export const createClient = <Configuration = any>(
+export const createClient = <Configuration = any,>(
   connection: TransportConnection<ServiceTypes>,
   authenticationOptions: Partial<AuthenticationClientOptions> = {}
 ) => {
@@ -114,5 +130,7 @@ export const createClient = <Configuration = any>(
   client.configure(bbMatchClient)
   client.configure(bbSeasonteamClient)
   client.configure(bbSeasonteamplayerClient)
+  client.configure(bbMatchlogClient)
+  client.configure(bbPlayermatchstatClient)
   return client
 }
