@@ -1,3 +1,5 @@
+import { bbPlayoff } from './basketball/playoff/playoff'
+import { bbPlayerseasonaverage } from './basketball/playerseasonaverage/playerseasonaverage'
 import { bbPlayermatchstat } from './basketball/playermatchstat/playermatchstat'
 import { bbMatchlog } from './basketball/matchlog/matchlog'
 import { bbSeasonteamplayer } from './basketball/seasonteamplayer/seasonteamplayer'
@@ -15,6 +17,8 @@ import { tfSeason } from './track-field/season/season'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(bbPlayoff)
+  app.configure(bbPlayerseasonaverage)
   app.configure(bbPlayermatchstat)
   app.configure(bbMatchlog)
   app.configure(bbSeasonteamplayer)
