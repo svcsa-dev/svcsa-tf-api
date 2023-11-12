@@ -15,7 +15,12 @@ export const tfSeasonSchema = Type.Object(
       id: Type.Number(),
       name: Type.String(),
       date: Type.String({ format: 'date' }),
-      venue: Type.String()
+      venue: Type.String(),
+      schedule: Type.Object({
+        date: Type.String(),
+  
+      }),
+      startdate: Type.String(),
     },
     { $id: 'Season', additionalProperties: false }
   )
@@ -23,9 +28,24 @@ export const tfSeasonSchema = Type.Object(
 
 export type TfSeason = Static<typeof tfSeasonSchema>
 export const tfSeasonValidator = getValidator(tfSeasonSchema, dataValidator)
-export const tfSeasonResolver = resolve<TfSeason, HookContext>({}, {
+export const tfSeasonResolver = resolve<TfSeason, HookContext>({
+  schedule: async (_, season) => {
+    if (!season.date) {
+      return undefined;
+    }
+    const dateObj = new Date(season["date"]);
+    const month = dateObj.getMonth() + 1;
+    const year=  dateObj.getFullYear();
+    const day=  dateObj.getDate();
+    return {
+      date: `${year}/${month}/${day}`
+    }
+  },
+  date: async () => undefined,   // hiding date property. 
+  
+}, {
   converter: async (rawData) => {
-    return toLowerCaseProperty(rawData, tfSeasonSchema)
+    return toLowerCaseProperty(rawData,tfSeasonSchema )
   } 
 });
 
