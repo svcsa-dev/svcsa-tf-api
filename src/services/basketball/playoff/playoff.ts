@@ -3,6 +3,7 @@
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
+  bbPlayoffSchema,
   bbPlayoffDataValidator,
   bbPlayoffPatchValidator,
   bbPlayoffQueryValidator,
@@ -16,6 +17,7 @@ import {
 import type { Application } from '../../../declarations'
 import { BbPlayoffService, getOptions } from './playoff.class'
 import { bbPlayoffPath, bbPlayoffMethods } from './playoff.shared'
+import { createSwaggerServiceOptions } from 'feathers-swagger'
 
 export * from './playoff.class'
 export * from './playoff.schema'
@@ -27,7 +29,14 @@ export const bbPlayoff = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: bbPlayoffMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
+    events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: { bbPlayoffSchema },
+      docs: {
+        tag: 'Playoff Service - Basketball',
+        description: 'A service to get Playoff data'
+      }
+    })
   })
   // Initialize hooks
   app.service(bbPlayoffPath).hooks({

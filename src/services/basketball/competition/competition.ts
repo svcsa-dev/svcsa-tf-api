@@ -3,6 +3,7 @@
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
+  bbCompetitionSchema,
   bbCompetitionDataValidator,
   bbCompetitionPatchValidator,
   bbCompetitionQueryValidator,
@@ -16,6 +17,7 @@ import {
 import type { Application } from '../../../declarations'
 import { BbCompetitionService, getOptions } from './competition.class'
 import { bbCompetitionPath, bbCompetitionMethods } from './competition.shared'
+import { createSwaggerServiceOptions } from 'feathers-swagger'
 
 export * from './competition.class'
 export * from './competition.schema'
@@ -27,7 +29,14 @@ export const bbCompetition = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: bbCompetitionMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
+    events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: { bbCompetitionSchema },
+      docs: {
+        tag: 'Competition Service - Basketball',
+        description: 'A service to get competition data'
+      }
+    })
   })
   // Initialize hooks
   app.service(bbCompetitionPath).hooks({

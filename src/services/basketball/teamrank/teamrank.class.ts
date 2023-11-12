@@ -1,6 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.class.html#custom-services
-import type { Id, NullableId, Params, ServiceInterface } from '@feathersjs/feathers'
+import type {  Params, ServiceInterface } from '@feathersjs/feathers'
 
 import type { Application } from '../../../declarations'
 import { app } from '../../../app'
@@ -68,7 +68,6 @@ export class BbTeamrankService<ServiceParams extends BbTeamrankParams = BbTeamra
     }
 
     const matches = await this.getMatchesBySeasonId(seasonId)
-    console.log('matches', matches.length)
 
     return this.rankTeamrank(this.calcTeamrank(matches))
   }

@@ -2,6 +2,7 @@
 import { HookContext as FeathersHookContext, NextFunction } from '@feathersjs/feathers'
 import { Application as FeathersApplication } from '@feathersjs/koa'
 import { ApplicationConfiguration } from './configuration'
+import { ServiceSwaggerOptions } from 'feathers-swagger'
 
 export { NextFunction }
 
@@ -18,3 +19,10 @@ export type Application = FeathersApplication<ServiceTypes, Configuration>
 
 // The context for hook functions - can be typed with a service class
 export type HookContext<S = any> = FeathersHookContext<Application, S>
+
+
+declare module '@feathersjs/feathers' {
+  interface ServiceOptions {
+    docs?: ServiceSwaggerOptions
+  }
+}

@@ -5,6 +5,7 @@ import { BbTeamrankService, getOptions } from './teamrank.class'
 import { bbTeamrankPath, bbTeamrankMethods } from './teamrank.shared'
 import { hooks as schemaHooks } from '@feathersjs/schema'
 import { resolve, virtual } from '@feathersjs/schema'
+import { createSwaggerServiceOptions } from 'feathers-swagger'
 
 export * from './teamrank.class'
 import type { BbTeamrank } from './teamrank.class'
@@ -16,7 +17,14 @@ export const bbTeamrank = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: bbTeamrankMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
+    events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: { },
+      docs: {
+        tag: 'Teamrank Service - Basketball',
+        description: 'A service to get teamrank data'
+      }
+    })
   })
   // Initialize hooks
   app.service(bbTeamrankPath).hooks({

@@ -17,19 +17,25 @@ import { tfSeason } from './track-field/season/season'
 // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html#configure-functions
 import type { Application } from '../declarations'
 
+/**
+ * ORDER MATTERS
+ * The order here will affect the generated docs. 
+ * Please pay more attention to the order when editing this file.
+ * @param app 
+ */
 export const services = (app: Application) => {
+  app.configure(bbPlayer)
+  app.configure(bbTeam)
+  app.configure(bbCompetition)
+  app.configure(bbMatch)
+  app.configure(bbSeason)
+  app.configure(bbSeasonteam)
+  app.configure(bbSeasonteamplayer)
   app.configure(bbTeamrank)
-  app.configure(bbPlayoff)
   app.configure(bbPlayerseasonaverage)
   app.configure(bbPlayermatchstat)
   app.configure(bbMatchlog)
-  app.configure(bbSeasonteamplayer)
-  app.configure(bbSeasonteam)
-  app.configure(bbMatch)
-  app.configure(bbSeason)
-  app.configure(bbCompetition)
-  app.configure(bbTeam)
-  app.configure(bbPlayer)
+  app.configure(bbPlayoff)
   app.configure(tfItem)
   app.configure(tfPlayer)
   app.configure(tfTeam)

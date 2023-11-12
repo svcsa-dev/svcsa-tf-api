@@ -3,6 +3,7 @@
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
+  bbMatchlogSchema,
   bbMatchlogDataValidator,
   bbMatchlogPatchValidator,
   bbMatchlogQueryValidator,
@@ -16,6 +17,7 @@ import {
 import type { Application } from '../../../declarations'
 import { BbMatchlogService, getOptions } from './matchlog.class'
 import { bbMatchlogPath, bbMatchlogMethods } from './matchlog.shared'
+import { createSwaggerServiceOptions } from 'feathers-swagger'
 
 export * from './matchlog.class'
 export * from './matchlog.schema'
@@ -27,7 +29,14 @@ export const bbMatchlog = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: bbMatchlogMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
+    events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: { bbMatchlogSchema },
+      docs: {
+        tag: 'Matchlog Service - Basketball',
+        description: 'A service to get matchlog data'
+      }
+    })
   })
   // Initialize hooks
   app.service(bbMatchlogPath).hooks({
