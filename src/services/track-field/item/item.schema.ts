@@ -5,23 +5,51 @@ import type { Static } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../../declarations'
 import { dataValidator, queryValidator } from '../../../validators'
+import { toLowerCaseProperty } from '../../../utilities/property-name-converter';
 
 // Main data model schema
 export const tfItemSchema = Type.Object(
   {
     id: Type.Number(),
-    text: Type.String()
+    name: Type.String(),
+    issingle: Type.String(),
+    istrack: Type.String(),
+    heatsize: Type.Number(),
   },
   { $id: 'TfItem', additionalProperties: false }
 )
 export type TfItem = Static<typeof tfItemSchema>
 export const tfItemValidator = getValidator(tfItemSchema, dataValidator)
-export const tfItemResolver = resolve<TfItem, HookContext>({})
+export const tfItemResolver = resolve<TfItem, HookContext>({
+  issingle: async (value) => {
+
+    if(value == "1") {
+      return 'true';
+    }else if(value == "0"){
+      return 'false'
+    }
+    return undefined;
+  },
+  istrack: async (value) => {
+
+    if(value == "1") {
+      return 'true';
+    }else if(value == "0"){
+      return 'false'
+    }
+    return undefined;
+  },
+}, {
+  converter: async (rawData) => {
+    return toLowerCaseProperty(rawData, tfItemSchema)
+  } 
+});
+
 
 export const tfItemExternalResolver = resolve<TfItem, HookContext>({})
 
 // Schema for creating new entries
-export const tfItemDataSchema = Type.Pick(tfItemSchema, ['text'], {
+export const tfItemDataSchema = Type.Pick(tfItemSchema, ['name'], {
   $id: 'TfItemData'
 })
 export type TfItemData = Static<typeof tfItemDataSchema>
@@ -37,7 +65,7 @@ export const tfItemPatchValidator = getValidator(tfItemPatchSchema, dataValidato
 export const tfItemPatchResolver = resolve<TfItem, HookContext>({})
 
 // Schema for allowed query properties
-export const tfItemQueryProperties = Type.Pick(tfItemSchema, ['id', 'text'])
+export const tfItemQueryProperties = Type.Pick(tfItemSchema, ['id', 'name', 'issingle','istrack','heatsize'])
 export const tfItemQuerySchema = Type.Intersect(
   [
     querySyntax(tfItemQueryProperties),
