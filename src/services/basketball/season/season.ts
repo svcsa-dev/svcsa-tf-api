@@ -3,6 +3,7 @@
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
+  bbSeasonSchema,
   bbSeasonDataValidator,
   bbSeasonPatchValidator,
   bbSeasonQueryValidator,
@@ -16,6 +17,7 @@ import {
 import type { Application } from '../../../declarations'
 import { BbSeasonService, getOptions } from './season.class'
 import { bbSeasonPath, bbSeasonMethods } from './season.shared'
+import { createSwaggerServiceOptions } from 'feathers-swagger'
 
 export * from './season.class'
 export * from './season.schema'
@@ -27,7 +29,14 @@ export const bbSeason = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: bbSeasonMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
+    events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: { bbSeasonSchema },
+      docs: {
+        tag: 'Season Service - Basketball',
+        description: 'A service to get season data'
+      }
+    })
   })
   // Initialize hooks
   app.service(bbSeasonPath).hooks({

@@ -10,12 +10,15 @@ import {
   bbPlayerExternalResolver,
   bbPlayerDataResolver,
   bbPlayerPatchResolver,
-  bbPlayerQueryResolver
+  bbPlayerQueryResolver,
+  bbPlayerSchema,
 } from './player.schema'
 
 import type { Application } from '../../../declarations'
 import { BbPlayerService, getOptions } from './player.class'
 import { bbPlayerPath, bbPlayerMethods } from './player.shared'
+
+import { createSwaggerServiceOptions } from 'feathers-swagger'
 
 export * from './player.class'
 export * from './player.schema'
@@ -27,7 +30,14 @@ export const bbPlayer = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: bbPlayerMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
+    events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: { bbPlayerSchema },
+      docs: {
+        tag: 'Player Service - Basketball',
+        description: 'A service to get player data'
+      }
+    })
   })
   // Initialize hooks
   app.service(bbPlayerPath).hooks({

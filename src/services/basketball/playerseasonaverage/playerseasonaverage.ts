@@ -3,6 +3,7 @@
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
+  bbPlayerseasonaverageSchema,
   bbPlayerseasonaverageDataValidator,
   bbPlayerseasonaveragePatchValidator,
   bbPlayerseasonaverageQueryValidator,
@@ -16,6 +17,7 @@ import {
 import type { Application } from '../../../declarations'
 import { BbPlayerseasonaverageService, getOptions } from './playerseasonaverage.class'
 import { bbPlayerseasonaveragePath, bbPlayerseasonaverageMethods } from './playerseasonaverage.shared'
+import { createSwaggerServiceOptions } from 'feathers-swagger'
 
 export * from './playerseasonaverage.class'
 export * from './playerseasonaverage.schema'
@@ -27,7 +29,14 @@ export const bbPlayerseasonaverage = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: bbPlayerseasonaverageMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
+    events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: { bbPlayerseasonaverageSchema },
+      docs: {
+        tag: 'Player season avg Service - Basketball',
+        description: 'A service to get player season avg data'
+      }
+    })
   })
   // Initialize hooks
   app.service(bbPlayerseasonaveragePath).hooks({

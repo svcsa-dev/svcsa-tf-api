@@ -16,6 +16,8 @@ import { logError } from './hooks/log-error'
 import { mysql } from './mysql'
 import { services } from './services/index'
 import { channels } from './channels'
+import swagger from 'feathers-swagger'
+
 
 const app: Application = koa(feathers())
 // Load our app configuration (see config/ folder)
@@ -39,7 +41,30 @@ app.configure(
 )
 app.configure(channels)
 app.configure(mysql)
+// Docs route
+app.configure(
+  swagger({
+    prefix: /(basketball|track-field)/,
+    specs: {
+      info: {
+        title: 'SVCSA API Docs',
+        description: 'API specs for svcsa api for both basketball and track&field',
+        version: '0.0.1'
+      }
+    },
+    ui: swagger.swaggerUI({}),
+    defaults: {
+      operationGenerators: {
+        create: () => false,
+        patch: () => false,
+        remove: () => false
+      }
+    }
+  })
+)
 app.configure(services)
+
+
 
 // Register hooks that run on all service methods
 app.hooks({
