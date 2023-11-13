@@ -34,7 +34,7 @@ jobs:
     - name: 'Deploy to Azure Container Instances'
       uses: 'azure/aci-deploy@v1'
       with:
-        resource-group: ${{ secrets.RESOURCE_GROUP }}
+        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
         dns-name-label: 'svcsa-api'
         image: 'svcbavideoacr.azurecr.io/svcsa-tf-api:latest'
         registry-login-server: 'svcbavideoacr.azurecr.io'
