@@ -40,7 +40,8 @@ jobs:
         registry-login-server: 'svcbavideoacr.azurecr.io'
         registry-username: ${{ secrets.AZURE_USERNAME }}
         registry-password: ${{ secrets.AZURE_PWD }}
-        name: aci-sampleapp
+        name: svcsa-api-container
+        ports: 3030
         location: 'west us'
         
     - name: Azure logout
