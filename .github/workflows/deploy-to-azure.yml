@@ -40,6 +40,7 @@ jobs:
         registry-login-server: 'svcbavideoacr.azurecr.io'
         registry-username: ${{ secrets.AZURE_USERNAME }}
         registry-password: ${{ secrets.AZURE_PWD }}
+        secure-environment-variables: DATABASE_CONNECTION_STRING=${{ secrets.DATABASE_CONNECTION_STRING }} FEATHERS_SECRET=${{ secrets.FEATHERS_SECRET }}
         name: 'svcsa-api-container'
         ports: 3030
         location: 'west us'
