@@ -4,7 +4,7 @@ name: Deploy container to Azure Container
 
 on:
   push:
-    branches: ["master"]
+    branches: ["prod"]
 
 jobs:
   build-and-deploy:
@@ -35,13 +35,13 @@ jobs:
       uses: 'azure/aci-deploy@v1'
       with:
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        dns-name-label: 'beta-svcsa-api'
+        dns-name-label: 'svcsa-api'
         image: 'svcbavideoacr.azurecr.io/svcsa-tf-api:latest'
         registry-login-server: 'svcbavideoacr.azurecr.io'
         registry-username: ${{ secrets.AZURE_USERNAME }}
         registry-password: ${{ secrets.AZURE_PWD }}
-        secure-environment-variables: DATABASE_CONNECTION_STRING=${{ secrets.DATABASE_CONNECTION_STRING }} FEATHERS_SECRET=${{ secrets.FEATHERS_SECRET }}
-        name: 'svcsa-api-beta-container'
+        secure-environment-variables: DATABASE_CONNECTION_STRING=${{ secrets.PROD_DATABASE_STRING }} FEATHERS_SECRET=${{ secrets.FEATHERS_SECRET }}
+        name: 'svcsa-api-container'
         ports: 3030
         location: 'west us'
         
