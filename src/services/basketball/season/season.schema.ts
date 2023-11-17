@@ -1,11 +1,12 @@
 // // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
-import { resolve } from '@feathersjs/schema'
+import { resolve, virtual } from '@feathersjs/schema'
 import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../../declarations'
 import { dataValidator, queryValidator } from '../../../validators'
 import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
+import { bbCompetitionSchema } from '../competition/competition.schema'
 
 // Main data model schema
 export const bbSeasonSchema = Type.Object(
@@ -13,12 +14,17 @@ export const bbSeasonSchema = Type.Object(
     id: Type.Number(),
     name: Type.String(),
     teamnumber: Type.Number(),
+    groupnumber: Type.Number(),
+    playoffgroupnumber: Type.Number(),
+    rules: Type.Number(),
+    competitionid: Type.Number(),
     starttime: Type.String({ format: 'date-time' }),
     startdate: Type.Object({
       month: Type.Number(),
       day: Type.Number(),
       year: Type.Number()
-    })
+    }),
+    competition: Type.Optional(Type.Ref(bbCompetitionSchema))
   },
   { $id: 'BbSeason', additionalProperties: false }
 )
@@ -34,7 +40,10 @@ export const bbSeasonResolver = resolve<BbSeason, HookContext>(
         day: dateObj.getDate(),
         year: dateObj.getFullYear()
       }
-    }
+    },
+    competition: virtual(async (playoff, context) => {
+      return context.app.service('basketball/competition').get(playoff.competitionid)
+    })
   },
   {
     converter: async (rawData) => {
@@ -62,15 +71,16 @@ export const bbSeasonPatchValidator = getValidator(bbSeasonPatchSchema, dataVali
 export const bbSeasonPatchResolver = resolve<BbSeason, HookContext>({})
 
 // Schema for allowed query properties
-export const bbSeasonQueryProperties = Type.Pick(bbSeasonSchema, ['name', 'starttime'])
+export const bbSeasonQueryProperties = Type.Pick(bbSeasonSchema, ['name', 'starttime', 'competitionid'])
 export const bbSeasonQuerySchema = Type.Intersect(
   [
     querySyntax(bbSeasonQueryProperties),
     // Add additional query properties here
-    Type.Object({}, { additionalProperties: false })
+    Type.Object({})
   ],
   { additionalProperties: false }
 )
+// console.log(bbSeasonQuerySchema)
 export type BbSeasonQuery = Static<typeof bbSeasonQuerySchema>
 export const bbSeasonQueryValidator = getValidator(bbSeasonQuerySchema, queryValidator)
 export const bbSeasonQueryResolver = resolve<BbSeasonQuery, HookContext>({})
