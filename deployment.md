@@ -1,8 +1,14 @@
-<!-- svcsa-tf-api -->
+# How to deploy to azure
+
 ### Rebuild the docker image
 
 ```
 docker build --tag svcsa-tf-api .
+```
+
+For apple silicon
+```
+docker buildx build --platform linux/amd64 --tag svcsa-tf-api .
 ```
 
 ### Retag the docker image name

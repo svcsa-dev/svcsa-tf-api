@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 
 import { hooks as schemaHooks } from '@feathersjs/schema'
@@ -14,7 +15,7 @@ import {
   bbSeasonQueryResolver
 } from './season.schema'
 
-import type { Application } from '../../../declarations'
+import type { Application, HookContext } from '../../../declarations'
 import { BbSeasonService, getOptions } from './season.class'
 import { bbSeasonPath, bbSeasonMethods } from './season.shared'
 import { createSwaggerServiceOptions } from 'feathers-swagger'
@@ -48,6 +49,16 @@ export const bbSeason = (app: Application) => {
     },
     before: {
       all: [
+        async (context: HookContext) => {
+          const { recentSeasons, ...rest } = context.params.query
+
+          if (recentSeasons) {
+            context.params.query = { ...rest }
+            context.params.query['$limit'] = 100;
+            context.params.recentSeasons = true;
+          }
+
+        },
         schemaHooks.validateQuery(bbSeasonQueryValidator),
         schemaHooks.resolveQuery(bbSeasonQueryResolver)
       ],
@@ -64,7 +75,34 @@ export const bbSeason = (app: Application) => {
       remove: []
     },
     after: {
-      all: []
+      all: [],
+      find: [
+        async (context: HookContext) => {
+          if (context.params.recentSeasons) {
+            const { data } = context.result
+
+            const recentSeasonsByCompetition: Record<number, any> = {}
+
+            data.forEach((rawSeason: { CompetitionID: number; StartTime: string }) => {
+              const { CompetitionID, StartTime }= rawSeason;
+              if(recentSeasonsByCompetition.hasOwnProperty(CompetitionID)) {
+                const startTime = new Date(StartTime);
+                const recordedStartTime = new Date(recentSeasonsByCompetition[CompetitionID].StartTime)
+                if(startTime < recordedStartTime) {
+                  return;
+                }
+              }
+
+              recentSeasonsByCompetition[CompetitionID] = rawSeason;
+              
+            });
+            context.result = {
+              total: Object.keys(recentSeasonsByCompetition).length,
+              data: Object.values(recentSeasonsByCompetition)
+            }
+          }
+        }
+      ]
     },
     error: {
       all: []
