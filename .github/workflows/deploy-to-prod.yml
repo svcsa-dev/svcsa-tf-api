@@ -1,0 +1,50 @@
+# This workflow will build a container and deploy it to an Azure Functions App on Linux when a commit is pushed to your default branch.
+#
+name: Deploy container to Azure Container
+
+on:
+  push:
+    branches: ["prod"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
+      
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Login to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: 'svcbavideoacr.azurecr.io'
+        username: ${{ secrets.AZURE_USERNAME }}
+        password: ${{ secrets.AZURE_PWD }}
+
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t svcbavideoacr.azurecr.io/svcsa-tf-api:latest .
+        docker push svcbavideoacr.azurecr.io/svcsa-tf-api:latest
+        
+    - name: 'Deploy to Azure Container Instances'
+      uses: 'azure/aci-deploy@v1'
+      with:
+        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        dns-name-label: 'svcsa-api'
+        image: 'svcbavideoacr.azurecr.io/svcsa-tf-api:latest'
+        registry-login-server: 'svcbavideoacr.azurecr.io'
+        registry-username: ${{ secrets.AZURE_USERNAME }}
+        registry-password: ${{ secrets.AZURE_PWD }}
+        secure-environment-variables: DATABASE_CONNECTION_STRING=${{ secrets.PROD_DATABASE_STRING }} FEATHERS_SECRET=${{ secrets.FEATHERS_SECRET }}
+        name: 'svcsa-api-container'
+        ports: 3030
+        location: 'west us'
+        
+    - name: Azure logout
+      run: |
+        az logout
