@@ -50,17 +50,14 @@ export const bbSeason = (app: Application) => {
     before: {
       all: [
         async (context: HookContext) => {
-          console.log(context.params)
-          const { recentSeason, ...rest } = context.params.query
+          const { recentSeasons, ...rest } = context.params.query
 
-          if (recentSeason) {
-            console.log('!!!!!!')
+          if (recentSeasons) {
             context.params.query = { ...rest }
             context.params.query['$limit'] = 100;
-            context.params.recentSeason = true;
+            context.params.recentSeasons = true;
           }
 
-          console.log('_____', context.params)
         },
         schemaHooks.validateQuery(bbSeasonQueryValidator),
         schemaHooks.resolveQuery(bbSeasonQueryResolver)
@@ -81,7 +78,7 @@ export const bbSeason = (app: Application) => {
       all: [],
       find: [
         async (context: HookContext) => {
-          if (context.params.recentSeason) {
+          if (context.params.recentSeasons) {
             const { data } = context.result
 
             const recentSeasonsByCompetition: Record<number, any> = {}
