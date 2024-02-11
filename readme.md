@@ -16,27 +16,24 @@ This project uses [Feathers](http://feathersjs.com). An open source framework fo
     npm install
     ```
 
-3. Start your app
+3. Start local app for development
+
+  ```
+  npm run dev
+  ```
+
+4. Build app for production
 
     ```
     npm run compile # Compile TypeScript source
-    npm run migrate # Run migrations to set up the database
     npm start
     ```
 
-## Services Structure
+## API Documentation
 
-### /track-field/player
-
-{{What's the purpose, params, return type, example}}
-
-### /track-field/team
-
-{{What's the purpose}}
-
-### /track-field/item
-
-{{What's the purpose}}
+```
+/docs/
+```
 
 ## Service Folder Structure
 
