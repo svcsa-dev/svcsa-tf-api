@@ -66,7 +66,7 @@ export const bbMatchPatchValidator = getValidator(bbMatchPatchSchema, dataValida
 export const bbMatchPatchResolver = resolve<BbMatch, HookContext>({})
 
 // Schema for allowed query properties
-export const bbMatchQueryProperties = Type.Pick(bbMatchSchema, ['seasonid'])
+export const bbMatchQueryProperties = Type.Pick(bbMatchSchema, ['seasonid', 'starttime', 'state', 'teamaid', 'teambid', 'scoreteama', 'scoreteamb'])
 export const bbMatchQuerySchema = Type.Intersect(
   [
     querySyntax(bbMatchQueryProperties),
