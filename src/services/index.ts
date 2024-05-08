@@ -1,3 +1,4 @@
+import { bbNews } from './basketball/news/news'
 import { bbTeamrank } from './basketball/teamrank/teamrank'
 import { bbPlayoff } from './basketball/playoff/playoff'
 import { bbPlayerseasonaverage } from './basketball/playerseasonaverage/playerseasonaverage'
@@ -19,11 +20,12 @@ import type { Application } from '../declarations'
 
 /**
  * ORDER MATTERS
- * The order here will affect the generated docs. 
+ * The order here will affect the generated docs.
  * Please pay more attention to the order when editing this file.
- * @param app 
+ * @param app
  */
 export const services = (app: Application) => {
+  app.configure(bbNews)
   app.configure(bbPlayer)
   app.configure(bbTeam)
   app.configure(bbCompetition)
