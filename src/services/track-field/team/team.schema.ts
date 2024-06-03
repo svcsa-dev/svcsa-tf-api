@@ -33,14 +33,14 @@ export const tfTeamResolver = resolve<TfTeam, HookContext>({
     if(!value) {
       return 'null';
     }
-    return `http://svcsa.org/uploads/${value}`;
+    return `http://www.svcsa.org/uploads/${value}`;
   },
 
   logosrc: async (value) => {
     if(!value) {
       return 'null';
     }
-    return `http://svcsa.org/uploads/${value}`;
+    return `http://www.svcsa.org/uploads/${value}`;
   }, 
 }, {
   converter: async (rawData) => {
