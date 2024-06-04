@@ -12,6 +12,7 @@ import { bbSeasonSchema } from '../season/season.schema'
 export const bbMatchSchema = Type.Object(
   {
     id: Type.Number(),
+    round: Type.Number(),
     teamaid: Type.Number(),
     teambid: Type.Number(),
     scoreteama: Type.Number(),
@@ -66,7 +67,7 @@ export const bbMatchPatchValidator = getValidator(bbMatchPatchSchema, dataValida
 export const bbMatchPatchResolver = resolve<BbMatch, HookContext>({})
 
 // Schema for allowed query properties
-export const bbMatchQueryProperties = Type.Pick(bbMatchSchema, ['seasonid', 'starttime', 'state', 'teamaid', 'teambid', 'scoreteama', 'scoreteamb'])
+export const bbMatchQueryProperties = Type.Pick(bbMatchSchema, ['seasonid', 'starttime', 'state', 'teamaid', 'teambid', 'scoreteama', 'scoreteamb', 'round'])
 export const bbMatchQuerySchema = Type.Intersect(
   [
     querySyntax(bbMatchQueryProperties),
