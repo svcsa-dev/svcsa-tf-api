@@ -9,7 +9,7 @@ export type BbNewsClientService = Pick<BbNewsService<Params<BbNewsQuery>>, (type
 
 export const bbNewsPath = 'basketball/news'
 
-export const bbNewsMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
+export const bbNewsMethods = ['find', 'get'] as const
 
 export const bbNewsClient = (client: ClientApplication) => {
   const connection = client.get('connection')
