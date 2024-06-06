@@ -28,7 +28,7 @@ export const tfPlayerResolver = resolve<TfPlayer, HookContext>({
     if(!value) {
       return 'null';
     }
-    return `http://svcsa.org/uploads/${value}`;
+    return `http://www.svcsa.org/uploads/${value}`;
   },
 
   birthyear: async (_, tfPlayer) => {

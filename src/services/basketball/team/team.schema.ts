@@ -29,11 +29,11 @@ export const bbTeamResolver = resolve<BbTeam, HookContext>(
   {
     photosrc: async (value) => {
       // Return the photo avatar URL
-      return `http://svcsa.org/uploads/${value}`
+      return `http://www.svcsa.org/uploads/${value}`
     },
     logosrc: async (value) => {
       // Return the photo avatar URL
-      return `http://svcsa.org/uploads/${value}`
+      return `http://www.svcsa.org/uploads/${value}`
     }
   },
   {
