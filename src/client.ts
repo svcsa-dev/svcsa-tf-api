@@ -4,6 +4,9 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { bbNewsClient } from './services/basketball/news/news.shared'
+export type { BbNews, BbNewsData, BbNewsQuery, BbNewsPatch } from './services/basketball/news/news.shared'
+
 import { bbTeamrankClient } from './services/basketball/teamrank/teamrank.shared'
 export type {
   BbTeamrank,
@@ -133,7 +136,7 @@ export type ClientApplication = Application<ServiceTypes, Configuration>
  * @see https://dove.feathersjs.com/api/client.html
  * @returns The Feathers client application
  */
-export const createClient = <Configuration = any,>(
+export const createClient = <Configuration = any>(
   connection: TransportConnection<ServiceTypes>,
   authenticationOptions: Partial<AuthenticationClientOptions> = {}
 ) => {
@@ -159,5 +162,6 @@ export const createClient = <Configuration = any,>(
   client.configure(bbPlayerseasonaverageClient)
   client.configure(bbPlayoffClient)
   client.configure(bbTeamrankClient)
+  client.configure(bbNewsClient)
   return client
 }
