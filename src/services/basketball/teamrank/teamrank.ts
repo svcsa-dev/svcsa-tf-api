@@ -9,6 +9,7 @@ import { createSwaggerServiceOptions } from 'feathers-swagger'
 
 export * from './teamrank.class'
 import type { BbTeamrank } from './teamrank.class'
+import { gracefulPromise } from '../../../utilities/graceful-promise'
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const bbTeamrank = (app: Application) => {
@@ -54,7 +55,7 @@ declare module '../../../declarations' {
 
 const teamResolver = resolve<BbTeamrank, HookContext>({
   team: virtual(async (teamrank, context) => {
-    return await context.app.service('basketball/team').get(teamrank.teamid)
+    return await gracefulPromise(context.app.service('basketball/team').get(teamrank.teamid))
     
   })
 })

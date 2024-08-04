@@ -8,6 +8,7 @@ import { dataValidator, queryValidator } from '../../../validators'
 import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
 import { bbTeamSchema } from '../team/team.schema'
 import { bbSeasonSchema } from '../season/season.schema'
+import { gracefulPromise } from '../../../utilities/graceful-promise'
 // Main data model schema
 export const bbMatchSchema = Type.Object(
   {
@@ -32,13 +33,13 @@ export const bbMatchValidator = getValidator(bbMatchSchema, dataValidator)
 export const bbMatchResolver = resolve<BbMatch, HookContext>(
   {
     teama: virtual(async (match, context) => {
-      return context.app.service('basketball/team').get(match.teamaid)
+      return gracefulPromise(context.app.service('basketball/team').get(match.teamaid))
     }),
     teamb: virtual(async (match, context) => {
-      return context.app.service('basketball/team').get(match.teambid)
+      return gracefulPromise(context.app.service('basketball/team').get(match.teambid))
     }),
     season: virtual(async (match, context) => {
-      return context.app.service('basketball/season').get(match.seasonid)
+      return gracefulPromise(context.app.service('basketball/season').get(match.seasonid))
     })
   },
   {

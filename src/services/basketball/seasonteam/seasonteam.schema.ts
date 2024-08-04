@@ -9,6 +9,7 @@ import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
 
 import { bbTeamSchema } from '../team/team.schema'
 import { bbSeasonSchema } from '../season/season.schema'
+import { gracefulPromise } from '../../../utilities/graceful-promise'
 // Main data model schema
 export const bbSeasonteamSchema = Type.Object(
   {
@@ -24,10 +25,10 @@ export const bbSeasonteamValidator = getValidator(bbSeasonteamSchema, dataValida
 export const bbSeasonteamResolver = resolve<BbSeasonteam, HookContext>(
   {
     team: virtual(async (seasonteam, context) => {
-      return context.app.service('basketball/team').get(seasonteam.teamid)
+      return gracefulPromise(context.app.service('basketball/team').get(seasonteam.teamid))
     }),
     season: virtual(async (seasonteam, context) => {
-      return context.app.service('basketball/season').get(seasonteam.seasonid)
+      return gracefulPromise(context.app.service('basketball/season').get(seasonteam.seasonid))
     })
   },
   {

@@ -7,6 +7,7 @@ import type { HookContext } from '../../../declarations'
 import { dataValidator, queryValidator } from '../../../validators'
 
 import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
+import { gracefulPromise } from '../../../utilities/graceful-promise';
 
 import { bbTeamSchema } from '../team/team.schema'
 import { bbSeasonSchema } from '../season/season.schema'
@@ -30,13 +31,13 @@ export const bbSeasonteamplayerValidator = getValidator(bbSeasonteamplayerSchema
 export const bbSeasonteamplayerResolver = resolve<BbSeasonteamplayer, HookContext>(
   {
     team: virtual(async (seasonteamplayer, context) => {
-      return context.app.service('basketball/team').get(seasonteamplayer.teamid)
+      return gracefulPromise(context.app.service('basketball/team').get(seasonteamplayer.teamid))
     }),
     season: virtual(async (seasonteamplayer, context) => {
-      return context.app.service('basketball/season').get(seasonteamplayer.seasonid)
+      return gracefulPromise(context.app.service('basketball/season').get(seasonteamplayer.seasonid))
     }),
     player: virtual(async (seasonteamplayer, context) => {
-      return context.app.service('basketball/player').get(seasonteamplayer.playerid)
+      return gracefulPromise(context.app.service('basketball/player').get(seasonteamplayer.playerid))
     })
   },
   {

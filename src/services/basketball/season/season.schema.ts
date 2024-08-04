@@ -7,6 +7,7 @@ import type { HookContext } from '../../../declarations'
 import { dataValidator, queryValidator } from '../../../validators'
 import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
 import { bbCompetitionSchema } from '../competition/competition.schema'
+import { gracefulPromise } from '../../../utilities/graceful-promise'
 
 // Main data model schema
 export const bbSeasonSchema = Type.Object(
@@ -42,7 +43,7 @@ export const bbSeasonResolver = resolve<BbSeason, HookContext>(
       }
     },
     competition: virtual(async (playoff, context) => {
-      return context.app.service('basketball/competition').get(playoff.competitionid)
+      return gracefulPromise(context.app.service('basketball/competition').get(playoff.competitionid))
     })
   },
   {
