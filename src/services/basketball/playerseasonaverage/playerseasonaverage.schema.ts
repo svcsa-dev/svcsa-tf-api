@@ -11,6 +11,7 @@ import { bbPlayerSchema } from './../player/player.schema'
 import { bbSeasonSchema } from '../season/season.schema'
 import { bbTeamSchema } from '../team/team.schema'
 import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
+import { gracefulPromise } from '../../../utilities/graceful-promise'
 // Main data model schema
 export const bbPlayerseasonaverageSchema = Type.Object(
   {
@@ -43,13 +44,13 @@ export const bbPlayerseasonaverageResolver = resolve<
 >(
   {
     team: virtual(async (data, context) => {
-      return context.app.service('basketball/team').get(data.teamid)
+      return gracefulPromise(context.app.service('basketball/team').get(data.teamid))
     }),
     season: virtual(async (data, context) => {
-      return context.app.service('basketball/season').get(data.seasonid)
+      return gracefulPromise(context.app.service('basketball/season').get(data.seasonid))
     }),
     player: virtual(async (data, context) => {
-      return context.app.service('basketball/player').get(data.playerid)
+      return gracefulPromise(context.app.service('basketball/player').get(data.playerid))
     })
   },
   {

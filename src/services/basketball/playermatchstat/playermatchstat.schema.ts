@@ -8,6 +8,7 @@ import { dataValidator, queryValidator } from '../../../validators'
 import type { BbPlayermatchstatService } from './playermatchstat.class'
 import { bbPlayerSchema } from './../player/player.schema'
 import { toLowerCaseProperty } from '../../../utilities/property-name-converter'
+import { gracefulPromise } from '../../../utilities/graceful-promise'
 
 // Main data model schema
 export const bbPlayermatchstatSchema = Type.Object(
@@ -51,7 +52,7 @@ export const bbPlayermatchstatResolver = resolve<BbPlayermatchstat, HookContext<
 
 export const bbPlayermatchstatExternalResolver = resolve<BbPlayermatchstat, HookContext<BbPlayermatchstatService>>({
   player: virtual(async (playermatchstat, context) => {
-    return context.app.service('basketball/player').get(playermatchstat.playerid)
+    return gracefulPromise(context.app.service('basketball/player').get(playermatchstat.playerid))
   })
 })
 
