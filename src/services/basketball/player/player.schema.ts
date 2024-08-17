@@ -76,7 +76,7 @@ export const bbPlayerPatchValidator = getValidator(bbPlayerPatchSchema, dataVali
 export const bbPlayerPatchResolver = resolve<BbPlayer, HookContext>({})
 
 // Schema for allowed query properties
-export const bbPlayerQueryProperties = Type.Pick(bbPlayerSchema, ['name'])
+export const bbPlayerQueryProperties = Type.Pick(bbPlayerSchema, ['id','name'])
 export const bbPlayerQuerySchema = Type.Intersect(
   [
     querySyntax(bbPlayerQueryProperties),
