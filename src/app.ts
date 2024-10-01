@@ -28,7 +28,7 @@ app.use(cors())
 app.use(serveStatic(app.get('public')))
 app.use(errorHandler())
 app.use(parseAuthentication())
-app.use(bodyParser())
+app.use(bodyParser());
 
 // Configure services and transports
 app.configure(rest())

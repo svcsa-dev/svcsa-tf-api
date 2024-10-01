@@ -9,5 +9,8 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "rules": {"no-console": 2}
+  "rules": {
+    "no-console": 2,
+    "@typescript-eslint/no-explicit-any": 0 
+  }
 }
