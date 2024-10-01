@@ -19,6 +19,7 @@ type BbTeamrank = {
   total_score: number
   oppo_score: number
   score_diff?: number
+  groupid: number
 }
 type BbTeamrankData = BbTeamrank
 type BbTeamrankPatch = BbTeamrank
@@ -76,6 +77,8 @@ export class BbTeamrankService<ServiceParams extends BbTeamrankParams = BbTeamra
     const allMatches = await app.service('basketball/match').find({
       query: {
         seasonid: seasonId,
+        state: 1,
+        round: 0,
         $limit: 100,
       }
     })
@@ -85,16 +88,16 @@ export class BbTeamrankService<ServiceParams extends BbTeamrankParams = BbTeamra
   calcTeamrank(matches: BbMatch[]): Record<number, BbTeamrank> {
     const teamData: Record<number, BbTeamrank> = {}
     matches.forEach((match: BbMatch) => {
-      const { teamaid, teambid, scoreteama, scoreteamb, state } = match
+      const { teamaid, teambid, scoreteama, scoreteamb, state, groupid } = match
       if (state !== 1) {
         return
       }
 
       if (!teamData.hasOwnProperty(teamaid)) {
-        teamData[teamaid] = { ...EMPTY_TEAM_RANK, teamid: teamaid }
+        teamData[teamaid] = { ...EMPTY_TEAM_RANK, teamid: teamaid, groupid }
       }
       if (!teamData.hasOwnProperty(teambid)) {
-        teamData[teambid] = { ...EMPTY_TEAM_RANK, teamid: teambid }
+        teamData[teambid] = { ...EMPTY_TEAM_RANK, teamid: teambid, groupid }
       }
       // for team a
       teamData[teamaid].total_score += scoreteama

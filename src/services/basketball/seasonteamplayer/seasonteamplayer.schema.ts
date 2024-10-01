@@ -16,9 +16,9 @@ import { bbPlayerSchema } from '../player/player.schema'
 // Main data model schema
 export const bbSeasonteamplayerSchema = Type.Object(
   {
-    seasonid: Type.String(),
-    teamid: Type.String(),
-    playerid: Type.String(),
+    seasonid: Type.Number(),
+    teamid: Type.Number(),
+    playerid: Type.Number(),
     playernumber: Type.Number(),
     team: Type.Optional(Type.Ref(bbTeamSchema)),
     season: Type.Optional(Type.Ref(bbSeasonSchema)),
