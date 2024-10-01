@@ -57,7 +57,7 @@ export const bbSeasonteamPatchValidator = getValidator(bbSeasonteamPatchSchema, 
 export const bbSeasonteamPatchResolver = resolve<BbSeasonteam, HookContext>({})
 
 // Schema for allowed query properties
-export const bbSeasonteamQueryProperties = Type.Pick(bbSeasonteamSchema, ['seasonid'])
+export const bbSeasonteamQueryProperties = Type.Pick(bbSeasonteamSchema, ['seasonid', 'teamid'])
 export const bbSeasonteamQuerySchema = Type.Intersect(
   [
     querySyntax(bbSeasonteamQueryProperties),
