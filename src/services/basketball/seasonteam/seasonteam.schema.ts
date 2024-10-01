@@ -14,9 +14,11 @@ import { gracefulPromise } from '../../../utilities/graceful-promise'
 export const bbSeasonteamSchema = Type.Object(
   {
     seasonid: Type.Number(),
-    teamid: Type.String(),
+    teamid: Type.Number(),
+    groupid: Type.Number(),
+    playoffgroupid: Type.Number(),
     team: Type.Optional(Type.Ref(bbTeamSchema)),
-    season: Type.Optional(Type.Ref(bbSeasonSchema))
+    season: Type.Optional(Type.Ref(bbSeasonSchema)),
   },
   { $id: 'BbSeasonteam', additionalProperties: false }
 )
@@ -29,7 +31,7 @@ export const bbSeasonteamResolver = resolve<BbSeasonteam, HookContext>(
     }),
     season: virtual(async (seasonteam, context) => {
       return gracefulPromise(context.app.service('basketball/season').get(seasonteam.seasonid))
-    })
+    }),
   },
   {
     converter: async (rawData) => {
@@ -41,9 +43,13 @@ export const bbSeasonteamResolver = resolve<BbSeasonteam, HookContext>(
 export const bbSeasonteamExternalResolver = resolve<BbSeasonteam, HookContext>({})
 
 // Schema for creating new entries
-export const bbSeasonteamDataSchema = Type.Pick(bbSeasonteamSchema, ['seasonid'], {
-  $id: 'BbSeasonteamData'
-})
+export const bbSeasonteamDataSchema = Type.Pick(
+  bbSeasonteamSchema,
+  ['seasonid', 'teamid', 'groupid', 'playoffgroupid'],
+  {
+    $id: 'BbSeasonteamData'
+  }
+)
 export type BbSeasonteamData = Static<typeof bbSeasonteamDataSchema>
 export const bbSeasonteamDataValidator = getValidator(bbSeasonteamDataSchema, dataValidator)
 export const bbSeasonteamDataResolver = resolve<BbSeasonteam, HookContext>({})
