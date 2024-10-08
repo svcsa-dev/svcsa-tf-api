@@ -24,7 +24,8 @@ export const bbMatchSchema = Type.Object(
     court: Type.String(),
     teama: Type.Optional(Type.Ref(bbTeamSchema)),
     teamb: Type.Optional(Type.Ref(bbTeamSchema)),
-    season: Type.Optional(Type.Ref(bbSeasonSchema))
+    season: Type.Optional(Type.Ref(bbSeasonSchema)),
+    groupid: Type.Number()
   },
   { $id: 'BbMatch', additionalProperties: false }
 )
@@ -40,6 +41,21 @@ export const bbMatchResolver = resolve<BbMatch, HookContext>(
     }),
     season: virtual(async (match, context) => {
       return gracefulPromise(context.app.service('basketball/season').get(match.seasonid))
+    }),
+    groupid: virtual(async (match, context) => {
+      return gracefulPromise(
+        context.app
+          .service('basketball/seasonteam')
+          .find({
+            query: {
+              seasonid: match.seasonid,
+              teamid: match.teamaid
+            }
+          })
+          .then((res) => {
+            return res.data?.[0]?.groupid ?? 0
+          })
+      )
     })
   },
   {
